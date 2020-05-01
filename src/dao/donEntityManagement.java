@@ -37,7 +37,7 @@ public class donEntityManagement{
 	@Path("/getAll")
 	@Produces({MediaType.APPLICATION_JSON})
 	public List<Don> getAll() {
-		List<Don> donsList = new ArrayList<Don>();
+		List<Don> donsList;
 		try {			
 			donsList = servicedon.findAll();
 			return donsList;

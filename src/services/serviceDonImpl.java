@@ -1,7 +1,9 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -51,7 +53,8 @@ public class serviceDonImpl implements serviceDon {
 	public List<Don> findAll() {
 		// TODO Auto-generated method stub
 		EntityTransaction tx = em.getEntityManager().getTransaction();
-		List<Don> donsList  = new ArrayList<>();
+		List<Don> donsList  = new ArrayList<Don>();
+		
 		  try{
 	    tx.begin();
 	    Query query = em.getEntityManager().createNativeQuery("SELECT * FROM don.don;");
@@ -59,7 +62,7 @@ public class serviceDonImpl implements serviceDon {
 	    tx.commit();
 		  } catch(Exception e) {
 			  em.getEntityManager().getTransaction().rollback();
-		        em.getEntityManager().close();
+		      em.getEntityManager().close();
 	        }
 		  return donsList;
 	}

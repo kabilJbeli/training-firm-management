@@ -1,1 +1,11 @@
-{{content | json}}
+<table>
+<tr>
+<th>ID</th>
+<th>Type</th>
+<th>description</th>
+<th>Quantity</th>
+</tr>
+<tr ng-repeat=" item in content">
+<td ng-repeat=" i in item"> {{i}} </td>
+</tr>
+</table>

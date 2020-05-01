@@ -11,6 +11,24 @@ import javax.persistence.*;
 @Entity
 @NamedQuery(name="Don.findAll", query="SELECT d FROM Don d")
 public class Don implements Serializable {
+	
+	public Don(Don d) {
+		super();
+		this.id =  d.getId();
+		this.donType = d.getDonType();
+		this.doncol = d.getDoncol();
+		this.quantity = d.getQuantity();
+	}
+
+	
+	public Don(int id, int donType, String doncol, int quantity) {
+		super();
+		this.id = id;
+		this.donType = donType;
+		this.doncol = doncol;
+		this.quantity = quantity;
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
