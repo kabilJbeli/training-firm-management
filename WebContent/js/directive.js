@@ -9,11 +9,13 @@ AppModule.directive('allDon', function () {
         
         },
         controller: function ($scope) {
-        	
+		    $scope.showSpinner = true;
+
         	$scope.$watch('sectioncontent', function (newValue, oldValue, scope) {
         	    //Do anything with $scope.letters
         		if(newValue !== 'undefined' && newValue !== undefined){
-        		    $scope.content = $scope.sectioncontent[0].data;    
+        		    $scope.showSpinner = false;
+        		    $scope.content = $scope.sectioncontent[0].data;  
         		}
         	});
         

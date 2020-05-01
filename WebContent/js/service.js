@@ -6,7 +6,7 @@
  */
 
 AppModule
-        .factory('appFactory', ['$cookies', '$http', 'API_URL', function ($cookies, $http, API_URL) {
+        .factory('appFactory', ['$http', 'API_URL', function ( $http, API_URL) {
 
                 /**
                  * @namespace CookiesParamGetter

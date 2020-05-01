@@ -1,11 +1,17 @@
-<table>
-<tr>
-<th>ID</th>
-<th>Type</th>
-<th>description</th>
-<th>Quantity</th>
+<table class="table table-striped" ng-if="!showSpinner">
+  <thead>
+    <tr>
+    <th scope="col">ID</th>
+<th scope="col">Type</th>
+<th scope="col">description</th>
+<th scope="col">Quantity</th>
+
+    </tr>
+  </thead>
+  <tbody>
+<tr scope="row" ng-repeat=" item in content track by $index">
+<td  ng-repeat=" i in item"> {{i}} </td>
 </tr>
-<tr ng-repeat=" item in content">
-<td ng-repeat=" i in item"> {{i}} </td>
-</tr>
+  </tbody>
 </table>
+<div ng-if="showSpinner" class="lds-dual-ring"></div>
