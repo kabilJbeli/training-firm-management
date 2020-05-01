@@ -20,19 +20,17 @@ public class serviceDonImpl implements serviceDon {
 	@Override
 	public Don add(Don don) {
 		// TODO Auto-generated method stub
-		Don d=null;
-		EntityTransaction tx = em.getEntityManager().getTransaction();
+		Don d= new Don();
 		  try{
+		EntityTransaction tx = em.getEntityManager().getTransaction();
 	    tx.begin();
 		em.getEntityManager().persist(don);
-		d=em.getEntityManager().find(Don.class, don.getId());
 		tx.commit();
-        em.getEntityManager().close();
+		d=em.getEntityManager().find(Don.class, don.getId());
 
-		  } catch(Exception e) {
+		  } catch(IllegalStateException e) {
 			  em.getEntityManager().getTransaction().rollback();
-		        em.getEntityManager().close();
-
+		      em.getEntityManager().close();
 	        }
 		return d;
 		
@@ -59,7 +57,6 @@ public class serviceDonImpl implements serviceDon {
 	    Query query = em.getEntityManager().createNativeQuery("SELECT * FROM don.don;");
 	    donsList = query.getResultList();
 	    tx.commit();
-        em.getEntityManager().close();
 		  } catch(Exception e) {
 			  em.getEntityManager().getTransaction().rollback();
 		        em.getEntityManager().close();
@@ -69,15 +66,13 @@ public class serviceDonImpl implements serviceDon {
 
 	@Override
 	public Don find(int code) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 		EntityTransaction tx = em.getEntityManager().getTransaction();
 		Don don = new Don();
 		  try{
 	    tx.begin();
 	    don = em.getEntityManager().find(Don.class, code);
 	    tx.commit();
-        em.getEntityManager().close();
 		  } catch(Exception e) {
 			  em.getEntityManager().getTransaction().rollback();
 		        em.getEntityManager().close();

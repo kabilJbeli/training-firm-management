@@ -11,7 +11,7 @@ public class entityManagerConexion {
 	}
 
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("donManagement");
-	EntityManager em = emf.createEntityManager();
+	EntityManager em =  emf.createEntityManager();
     
     public EntityManager getEntityManager() {    	
     	return em;
