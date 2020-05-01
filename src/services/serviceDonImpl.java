@@ -45,7 +45,18 @@ public class serviceDonImpl implements serviceDon {
 
 	@Override
 	public void remove(int code) {
-		// TODO Auto-generated method stub
+	
+		EntityTransaction tx = em.getEntityManager().getTransaction();
+		Don don = new Don();
+		  try{
+	    tx.begin();
+	    don = em.getEntityManager().find(Don.class, code);
+	    em.getEntityManager().remove(don);
+	    tx.commit();
+		  } catch(Exception e) {
+			  em.getEntityManager().getTransaction().rollback();
+		        em.getEntityManager().close();
+	        }
 	}
 
 	@SuppressWarnings("unchecked")

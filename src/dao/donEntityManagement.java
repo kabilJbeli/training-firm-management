@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -32,6 +33,17 @@ public class donEntityManagement{
 		}
 	}
 	
+	
+	@DELETE
+	@Path("/removeDon")
+	public void removeDon(@QueryParam("code") int code) {
+		try {			
+			servicedon.remove(code);
+		}catch(NullPointerException e) {
+			throw e;
+			
+		}
+	}
 	
 	@GET
 	@Path("/getAll")

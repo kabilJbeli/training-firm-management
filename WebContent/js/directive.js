@@ -14,8 +14,8 @@ AppModule.directive('allDon', function () {
         	$scope.$watch('sectioncontent', function (newValue, oldValue, scope) {
         	    //Do anything with $scope.letters
         		if(newValue !== 'undefined' && newValue !== undefined){
-        		    $scope.showSpinner = false;
         		    $scope.content = $scope.sectioncontent[0].data;  
+        		    $scope.showSpinner = false;
         		}
         	});
         
@@ -24,4 +24,28 @@ AppModule.directive('allDon', function () {
     };
 });
 
+AppModule.directive('removeDon', function () {
+    return {
+        restrict: 'E',
+        templateUrl: '/donManagement/partial/remove.html',
+        scope: {       
+        	id: "="
+        },
+        link: function ($scope, scope, elem, attrs) {
+        
+        },
+        controller: function ($scope,$http) {
+$scope.deleteItem = function(){
+$http.delete("http://localhost:8080/donManagement/api/dons/removeDon?code="+$scope.id).then(function(response){
+	console.log(response);
+
+	
+});
+        	}
+        	console.log($scope.id);
+        
+  
+        }
+    };
+});
 
