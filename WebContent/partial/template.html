@@ -1,16 +1,20 @@
 <table class="table table-striped" ng-if="!showSpinner">
   <thead>
     <tr>
-    <th scope="col">ID</th>
-<th scope="col">Type</th>
-<th scope="col">description</th>
-<th scope="col">Quantity</th>
-
+    <th class="text-center" scope="col">ID</th>
+<th class="text-center" scope="col">Type</th>
+<th class="text-center" scope="col">description</th>
+<th class="text-center" scope="col">Quantity</th>
+<th class="text-center" scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
-<tr scope="row" ng-repeat=" item in content track by $index">
-<td  ng-repeat=" i in item"> {{i}} </td>
+<tr scope="row" ng-repeat=" item in content track by $index" >
+<td  ng-repeat=" i in item track by $index"> {{i}} </td>
+<td> 
+<button class="btn btn-danger"> Delete</button> 
+<button class="btn btn-success"> Update</button>
+</td>
 </tr>
   </tbody>
 </table>
