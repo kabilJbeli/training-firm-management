@@ -1,51 +1,85 @@
-AppModule.directive('allDon', function () {
+AppModule.directive('allDon', function() {
     return {
         restrict: 'E',
         templateUrl: '/donManagement/partial/template.html',
-        scope: {       
-        	sectioncontent: "="
+        scope: {
+            sectioncontent: "="
         },
-        link: function ($scope, scope, elem, attrs) {
-        
-        },
-        controller: function ($scope) {
-		    $scope.showSpinner = true;
+        link: function($scope, scope, elem, attrs) {
 
-        	$scope.$watch('sectioncontent', function (newValue, oldValue, scope) {
-        	    //Do anything with $scope.letters
-        		if(newValue !== 'undefined' && newValue !== undefined){
-        		    $scope.content = $scope.sectioncontent[0].data;  
-        		    $scope.showSpinner = false;
-        		}
-        	});
-        
-  
+        },
+        controller: function($scope) {
+            $scope.showSpinner = true;
+
+            $scope.$watch('sectioncontent', function(newValue, oldValue, scope) {
+                //Do anything with $scope.letters
+                if (newValue !== 'undefined' && newValue !== undefined) {
+                    $scope.content = $scope.sectioncontent[0].data;
+                    $scope.showSpinner = false;
+                }
+            });
+
+
         }
     };
 });
 
-AppModule.directive('removeDon', function () {
+AppModule.directive('removeDon', function() {
     return {
         restrict: 'E',
         templateUrl: '/donManagement/partial/remove.html',
-        scope: {       
-        	id: "="
+        scope: {
+            id: "="
         },
-        link: function ($scope, scope, elem, attrs) {
-        
-        },
-        controller: function ($scope,$http) {
-$scope.deleteItem = function(){
-$http.delete("http://localhost:8080/donManagement/api/dons/removeDon?code="+$scope.id).then(function(response){
-	console.log(response);
+        link: function($scope, scope, elem, attrs) {
 
-	
-});
-        	}
-        	console.log($scope.id);
-        
-  
+        },
+        controller: function($scope, $http) {
+            $scope.deleteItem = function() {
+                $http.delete("http://localhost:8080/donManagement/api/dons/removeDon?code=" + $scope.id).then(function(response) {
+                    console.log(response);
+
+
+                });
+            }
+            console.log($scope.id);
+
+
         }
     };
 });
 
+
+
+AppModule.directive('ajouterDon', function() {
+    return {
+        restrict: 'E',
+        templateUrl: '/donManagement/partial/ajout.html',
+        scope: {
+            id: "="
+        },
+        link: function($scope, scope, elem, attrs) {
+
+        },
+        controller: function($scope, $http) {
+            $scope.type = 5;
+        
+            $scope.addItem = function() {
+                var data = {
+
+                        donType: $scope.type,
+                        doncol: $scope.doncol,
+                        quantity: $scope.quantity
+
+                    };
+                $http.post("http://localhost:8080/donManagement/api/dons/add", JSON.stringify(data)).then(function(response) {
+
+
+                });
+            }
+            console.log($scope.id);
+
+
+        }
+    };
+});

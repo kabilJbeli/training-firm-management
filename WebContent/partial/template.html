@@ -1,3 +1,7 @@
+<ajouter-don ></ajouter-don>
+<button ng-if="!showSpinner" type="button" class="btn btn-info col-md-3" data-toggle="modal" data-target="#exampleModal">
+Add Don
+</button>
 <table class="table table-striped" ng-if="!showSpinner">
   <thead>
     <tr>
@@ -18,4 +22,5 @@
 </tr>
   </tbody>
 </table>
+
 <div ng-if="showSpinner" class="lds-dual-ring"></div>
