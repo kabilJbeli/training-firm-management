@@ -26,14 +26,15 @@ public class donEntityManagement{
 	@Produces({MediaType.APPLICATION_JSON})
 	public Don addDon(Don don) {
 		try {
-			return servicedon.add(don);		
+			if (don.getQuantity()<(servicedon.quantitedesire(don.getType().getId()) - servicedon.quantiteAjouté(don.getType().getId())))
+			return servicedon.add(don);
+			return null;
 		}catch(NullPointerException e) {
 			throw e;
 			
 		}
 	}
-	
-	
+
 	@DELETE
 	@Path("/removeDon")
 	public void removeDon(@QueryParam("code") int code) {

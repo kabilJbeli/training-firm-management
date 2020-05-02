@@ -15,7 +15,7 @@ public class Don implements Serializable {
 	public Don(Don d) {
 		super();
 		this.id =  d.getId();
-		this.donType = d.getDonType();
+		this.Description = d.getDonType();
 		this.doncol = d.getDoncol();
 		this.quantity = d.getQuantity();
 	}
@@ -24,7 +24,7 @@ public class Don implements Serializable {
 	public Don(int id, int donType, String doncol, int quantity) {
 		super();
 		this.id = id;
-		this.donType = donType;
+		this.Description = donType;
 		this.doncol = doncol;
 		this.quantity = quantity;
 	}
@@ -34,13 +34,32 @@ public class Don implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-
-	@Column(name="DON_TYPE")
-	private int donType;
-
+	private int Description;
 	private String doncol;
-
 	private int quantity;
+	@OneToOne
+	private Type type;
+	private String affectation;
+
+	public String getAffectation() {
+		return affectation;
+	}
+
+
+	public void setAffectation(String affectation) {
+		this.affectation = affectation;
+	}
+
+
+	public Type getType() {
+		return type;
+	}
+
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
 
 	public Don() {
 	}
@@ -54,11 +73,11 @@ public class Don implements Serializable {
 	}
 
 	public int getDonType() {
-		return this.donType;
+		return this.Description;
 	}
 
 	public void setDonType(int donType) {
-		this.donType = donType;
+		this.Description = donType;
 	}
 
 	public String getDoncol() {
