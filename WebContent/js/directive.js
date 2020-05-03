@@ -8,7 +8,7 @@ AppModule.directive('allDon', function() {
         link: function($scope, scope, elem, attrs) {
 
         },
-        controller: function($scope) {
+        controller: function($scope,$http) {
             $scope.showSpinner = true;
 
             $scope.$watch('sectioncontent', function(newValue, oldValue, scope) {
@@ -18,52 +18,13 @@ AppModule.directive('allDon', function() {
                     $scope.showSpinner = false;
                 }
             });
-
-
-        }
-    };
-});
-
-AppModule.directive('removeDon', function() {
-    return {
-        restrict: 'E',
-        templateUrl: '/donManagement/partial/remove.html',
-        scope: {
-            id: "="
-        },
-        link: function($scope, scope, elem, attrs) {
-
-        },
-        controller: function($scope, $http) {
-            $scope.deleteItem = function() {
-                $http.delete("http://localhost:8080/donManagement/api/dons/removeDon?code=" + $scope.id).then(function(response) {
-                    console.log(response);
-
-
-                });
-            }
-            console.log($scope.id);
-
-
-        }
-    };
-});
-
-
-
-AppModule.directive('ajouterDon', function() {
-    return {
-        restrict: 'E',
-        templateUrl: '/donManagement/partial/ajout.html',
-        scope: {
-            id: "="
-        },
-        link: function($scope, scope, elem, attrs) {
-
-        },
-        controller: function($scope, $http) {
-            $scope.type = 5;
-        
+            
+            $http.get("/donManagement/api/dons/getTypeList").then(function(rep) {
+                console.log(rep.data);
+                $scope.typeList = rep.data;
+            });
+            
+            
             $scope.addItem = function() {
                 var data = {
 
@@ -72,14 +33,27 @@ AppModule.directive('ajouterDon', function() {
                         quantity: $scope.quantity
 
                     };
-                $http.post("http://localhost:8080/donManagement/api/dons/add", JSON.stringify(data)).then(function(response) {
-
+                $http.post("/donManagement/api/dons/add", JSON.stringify(data)).then(function(response) {
+                	  $http.get("/donManagement/api/dons/getAll").then(function(rep) {
+                          console.log(rep);
+                          $scope.content = rep[0].data;
+                      });
 
                 });
             }
-            console.log($scope.id);
 
+            $scope.deleteItem = function(id) {
+                $http.delete("/donManagement/api/dons/removeDon?code=" + id).then(function(response) {
+                    console.log(response);
+                    $http.get("/donManagement/api/dons/getAll").then(function(rep) {
+                        console.log(rep);
+                        $scope.content = rep[0].data;
+                    });
+
+                });
+            }
 
         }
     };
 });
+

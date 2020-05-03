@@ -12,21 +12,17 @@ import javax.persistence.*;
 @NamedQuery(name="Don.findAll", query="SELECT d FROM Don d")
 public class Don implements Serializable {
 	
-	public Don(Don d) {
-		super();
-		this.id =  d.getId();
-		this.Description = d.getDonType();
-		this.doncol = d.getDoncol();
-		this.quantity = d.getQuantity();
-	}
 
-	
-	public Don(int id, int donType, String doncol, int quantity) {
+	public Don() {
 		super();
-		this.id = id;
-		this.Description = donType;
+	}
+	
+	public Don(int description, String doncol, int quantity, Type type, String affectation) {
+		super();
+		Description = description;
 		this.doncol = doncol;
-		this.quantity = quantity;
+		this.type = type;
+		this.affectation = affectation;
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -40,15 +36,60 @@ public class Don implements Serializable {
 	@OneToOne
 	private Type type;
 	private String affectation;
-
-	public String getAffectation() {
-		return affectation;
+	public int getId() {
+		return id;
 	}
 
 
-	public void setAffectation(String affectation) {
-		this.affectation = affectation;
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
+
+
+
+
+	public int getDescription() {
+		return Description;
+	}
+
+
+
+
+	public void setDescription(int description) {
+		Description = description;
+	}
+
+
+
+
+	public String getDoncol() {
+		return doncol;
+	}
+
+
+
+
+	public void setDoncol(String doncol) {
+		this.doncol = doncol;
+	}
+
+
+
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+
+
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+
 
 
 	public Type getType() {
@@ -56,44 +97,26 @@ public class Don implements Serializable {
 	}
 
 
+
+
 	public void setType(Type type) {
 		this.type = type;
 	}
 
 
-	public Don() {
+
+
+	public String getAffectation() {
+		return affectation;
 	}
 
-	public int getId() {
-		return this.id;
+
+
+
+	public void setAffectation(String affectation) {
+		this.affectation = affectation;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
 
-	public int getDonType() {
-		return this.Description;
-	}
-
-	public void setDonType(int donType) {
-		this.Description = donType;
-	}
-
-	public String getDoncol() {
-		return this.doncol;
-	}
-
-	public void setDoncol(String doncol) {
-		this.doncol = doncol;
-	}
-
-	public int getQuantity() {
-		return this.quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
 
 }

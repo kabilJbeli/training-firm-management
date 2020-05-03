@@ -14,11 +14,34 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import entities.Don;
+import entities.Type;
 
 public class serviceDonImpl implements serviceDon {
 
 	private entityManagerConexion em = new entityManagerConexion();
 
+	
+	
+	
+	public Type addType(Type type) {
+		// TODO Auto-generated method stub
+		Type T = new Type();
+		try {
+			EntityTransaction tx = em.getEntityManager().getTransaction();
+			tx.begin();
+			em.getEntityManager().persist(type);
+			tx.commit();
+			T = em.getEntityManager().find(Type.class, type.getId());
+
+		} catch (IllegalStateException e) {
+			em.getEntityManager().getTransaction().rollback();
+			em.getEntityManager().close();
+		}
+		return T;
+
+	}
+	
+	
 	@Override
 	public Don add(Don don) {
 		// TODO Auto-generated method stub
@@ -59,13 +82,13 @@ public class serviceDonImpl implements serviceDon {
 		}
 	}
 	
-	public int quantitedesire(int codeTyoe) {
+	public int quantitedesire(int codeType) {
 		EntityTransaction tx = em.getEntityManager().getTransaction();
 		Don don = new Don();
 		try {
 			tx.begin();
 			int quantite = em.getEntityManager().createNativeQuery("select quantite from type where id=?")
-					.setParameter("id", codeTyoe).getFirstResult();
+					.setParameter("id", codeType).getFirstResult();
 			tx.commit();
 			return quantite;
 		} catch (Exception e) {
@@ -89,6 +112,25 @@ public class serviceDonImpl implements serviceDon {
 			em.getEntityManager().getTransaction().rollback();
 			em.getEntityManager().close();
 		}
+	}
+	
+	
+
+	public List<Type> findAllTypes() {
+		// TODO Auto-generated method stub
+		EntityTransaction tx = em.getEntityManager().getTransaction();
+		List<Type> typeList = new ArrayList<Type>();
+
+		try {
+			tx.begin();
+			Query query = em.getEntityManager().createNativeQuery("SELECT * FROM don.type;");
+			typeList = query.getResultList();
+			tx.commit();
+		} catch (Exception e) {
+			em.getEntityManager().getTransaction().rollback();
+			em.getEntityManager().close();
+		}
+		return typeList;
 	}
 
 	@SuppressWarnings("unchecked")

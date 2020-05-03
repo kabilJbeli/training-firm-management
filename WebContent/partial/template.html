@@ -1,4 +1,4 @@
-<ajouter-don ></ajouter-don>
+
 <button ng-if="!showSpinner" type="button" class="btn btn-info col-md-3" data-toggle="modal" data-target="#exampleModal">
 Add Don
 </button>
@@ -16,11 +16,35 @@ Add Don
 <tr scope="row" ng-repeat=" item in content track by $index" >
 <td  ng-repeat=" i in item track by $index"> {{i}} </td>
 <td> 
-<remove-don id="item[0]"></remove-don>
+<button class="btn btn-danger" ng-click="deleteItem(item[0])">Delete</button> 
 <button class="btn btn-success"> Update</button>
 </td>
 </tr>
   </tbody>
 </table>
+
+
+
+<div id="exampleModal" ng-if="!showSpinner" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add A New Don</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<input type="number" placeholder="quantity" 	ng-value="quantity" ng-model="quantity" />  
+  		<input type="text" placeholder="Description" 	ng-value="doncol" ng-model="doncol"/>  
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="addItem()" data-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div ng-if="showSpinner" class="lds-dual-ring"></div>

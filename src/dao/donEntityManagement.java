@@ -13,12 +13,31 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import entities.Don;
+import entities.Type;
 import services.serviceDon;
 import services.serviceDonImpl;
 
 @Path("/dons")
 public class donEntityManagement{
 	public serviceDonImpl servicedon = new serviceDonImpl();
+	
+	
+	
+	
+	
+	@POST
+	@Path("/addType")
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_JSON})
+	public Type addType(Type type) {
+		try {
+			return servicedon.addType(type);
+		}catch(NullPointerException e) {
+			throw e;
+			
+		}
+	}
+	
 	
 	@POST
 	@Path("/add")
@@ -60,6 +79,20 @@ public class donEntityManagement{
 		}
 	}
 
+	
+	@GET
+	@Path("/getTypeList")
+	@Produces({MediaType.APPLICATION_JSON})
+	public List<Type> getTypeList() {
+		List<Type> typeList;
+		try {			
+			typeList = servicedon.findAllTypes();
+			return typeList;
+		}catch(NullPointerException e) {
+			throw e;
+			
+		}
+	}
 	
 	@GET
 	@Path("/getSpecificDon")
