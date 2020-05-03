@@ -30,7 +30,62 @@ AppModule.directive('allDon', function() {
                 $log.error("Data binding failed with:", data.status, data.statusText, data.data);
             }).finally(function () {
                 $log.log("Finally finished data biding.");
-            });;
+            });
+            $scope.updatedescription;
+            $scope.updatequantity;
+            $scope.updateOption;
+            $scope.updateSelectedItem = function(quantity,desc,option) {
+            	$scope.dataDon.type = option;
+            	$scope.dataDon.description = desc;
+            	$scope.dataDon.quantity = quantity;
+                $http.put("/donManagement/api/dons/modifyDon",JSON.stringify($scope.dataDon)).then(function(response) {
+                    console.log(response);
+                    $http.get("/donManagement/api/dons/getAll").then(function(rep) {
+                        console.log(rep.data);
+                        $scope.content = rep.data;
+                    }).catch(function (data) {
+                        $log.error("Data binding failed with:", data.status, data.statusText, data.data);
+                    }).finally(function () {
+                        $log.log("Finally finished data biding.");
+                    });
+                    
+                }).catch(function (response) {
+                    $log.error("Data binding failed with:", response.status, response.statusText, daresponseta.data);
+                }).finally(function () {
+                    $log.log("Finally finished data biding.");
+                });;
+           	
+               }
+            
+            
+         $scope.updateDon = function(code) {
+            	
+             $http.get("/donManagement/api/dons/getSpecificDon?id=" + code).then(function(response) {
+                 console.log(response);
+                 $scope.updatequantity = response.data.quantity;
+                 $scope.updatedescription = response.data.description;
+                 $scope.updateOption = [response.data.type.id,response.data.type.name,response.data.type.quantite];
+
+                 $scope.dataDon = {
+                		 id:response.data.id,
+                		 description:$scope.updatedescription,
+                		 quantity:$scope.updatequantity,
+                		 affectation: response.data.affectation,
+                		 type:response.data.type
+                 };
+                 
+             }).catch(function (response) {
+                 $log.error("Data binding failed with:", response.status, response.statusText, daresponseta.data);
+             }).finally(function () {
+                 $log.log("Finally finished data biding.");
+             });;
+        	
+            }
+            
+            
+            
+            
+            
             
             $scope.addType = function(quantity,name) {
                $scope.data = {    
@@ -132,7 +187,7 @@ AppModule.directive('findType', function() {
                 //Do anything with $scope.letters
                 if (newValue !== 'undefined' && newValue !== undefined) {
                     $scope.id = $scope.sectioncontent;
-                        $http.get("/donManagement/api/dons/findDon?code=" + $scope.id).then(function(response) {
+                        $http.get("/donManagement/api/dons/findType?code=" + $scope.id).then(function(response) {
                             console.log(response);
                             $scope.data = response.data;
                         }).catch(function (response) {

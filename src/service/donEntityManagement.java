@@ -50,7 +50,7 @@ public class donEntityManagement{
 	}
 	
 	@GET
-	@Path("/findDon")
+	@Path("/findType")
 	@Produces({MediaType.APPLICATION_JSON})
 	public Type findTypeById(@QueryParam("code") int code) {
 	try {
