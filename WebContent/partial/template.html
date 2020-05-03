@@ -1,4 +1,13 @@
+<div class="alert alert-danger" ng-if="addingItemError">
+<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">X</a>
+  <strong>{{error}} Error!</strong> accured while adding a new Item/Type.
+</div>
 
+
+<div class="alert alert-success"  ng-if="!addingItemError && addingItemSuccess">
+<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">X</a>
+  <strong> Success!</strong> a new Item/Type has been added with success.
+</div>
 <button ng-if="!showSpinner" type="button" class="btn btn-info col-md-3" data-toggle="modal" data-target="#exampleModal">
 Add Don
 </button>
