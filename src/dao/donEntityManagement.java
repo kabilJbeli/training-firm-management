@@ -45,9 +45,13 @@ public class donEntityManagement{
 	@Produces({MediaType.APPLICATION_JSON})
 	public Don addDon(Don don) {
 		try {
-			if (don.getQuantity()<(servicedon.quantitedesire(don.getType().getId()) - servicedon.quantiteAjouté(don.getType().getId())))
+			if (don.getQuantity()<(don.getType().getQuantite() - servicedon.quantiteAjouté(don.getType().getId())))
+			{
 			return servicedon.add(don);
-			return null;
+			}
+			{
+				return null;
+				}
 		}catch(NullPointerException e) {
 			throw e;
 			

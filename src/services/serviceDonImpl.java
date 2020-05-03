@@ -71,7 +71,7 @@ public class serviceDonImpl implements serviceDon {
 		Don don = new Don();
 		try {
 			tx.begin();
-			int quantite = em.getEntityManager().createNativeQuery("select sum(quantity) from don where type=?")
+			int quantite = em.getEntityManager().createNativeQuery("select sum(quantity) from don.don where type=?")
 					.setParameter("type", codeTyoe).getFirstResult();
 			tx.commit();
 			return quantite;
@@ -84,13 +84,14 @@ public class serviceDonImpl implements serviceDon {
 	
 	public int quantitedesire(int codeType) {
 		EntityTransaction tx = em.getEntityManager().getTransaction();
+		List<Type> t = new ArrayList<Type>();
 		Don don = new Don();
 		try {
 			tx.begin();
-			int quantite = em.getEntityManager().createNativeQuery("select quantite from type where id=?")
-					.setParameter("id", codeType).getFirstResult();
+			Query  query =  em.getEntityManager().createNativeQuery("select * from type where id="+codeType);
+			t =  query.getResultList();
 			tx.commit();
-			return quantite;
+			return t.get(0).getQuantite();
 		} catch (Exception e) {
 			em.getEntityManager().getTransaction().rollback();
 			em.getEntityManager().close();

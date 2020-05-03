@@ -22,21 +22,46 @@ AppModule.directive('allDon', function() {
             $http.get("/donManagement/api/dons/getTypeList").then(function(rep) {
                 console.log(rep.data);
                 $scope.typeList = rep.data;
+                $scope.selectedOption= $scope.typeList[0];
             });
             
+            $scope.addType = function(quantity,name) {
+               $scope.data = {    
+
+                       name: name,
+            		   quantite: quantity
+
+                    };
+                $http.post("/donManagement/api/dons/addType", JSON.stringify($scope.data)).then(function(response) {
+                	console.log(response);
+                	  $http.get("/donManagement/api/dons/getTypeList").then(function(rep) {
+                          console.log(rep.data);
+                          $scope.typeList = rep.data;
+                      });
+                      
+                });
+            }
             
             $scope.addItem = function() {
+            	var type = {
+            			
+            			id:$scope.selectedOption[0],
+            			name: $scope.selectedOption[1],
+            			quantite:$scope.selectedOption[2]
+            	}
+            	
                 var data = {
 
-                        donType: $scope.type,
-                        doncol: $scope.doncol,
-                        quantity: $scope.quantity
-
+                        type: type,
+                        description: $scope.doncol,
+                        quantity: $scope.quantity,
+                        doncol:'',
+                        affectation:1
                     };
                 $http.post("/donManagement/api/dons/add", JSON.stringify(data)).then(function(response) {
                 	  $http.get("/donManagement/api/dons/getAll").then(function(rep) {
-                          console.log(rep);
-                          $scope.content = rep[0].data;
+                          console.log(rep.data);
+                          $scope.content = rep.data;
                       });
 
                 });
@@ -47,7 +72,7 @@ AppModule.directive('allDon', function() {
                     console.log(response);
                     $http.get("/donManagement/api/dons/getAll").then(function(rep) {
                         console.log(rep);
-                        $scope.content = rep[0].data;
+                        $scope.content = rep.data;
                     });
 
                 });

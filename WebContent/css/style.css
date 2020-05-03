@@ -33,3 +33,12 @@ td{
     transform: rotate(360deg);
   }
 }
+
+input.form-control {
+    margin: 15px 0px;
+}
+h3.modal-title {
+    width: 90%;
+    position: absolute;
+    top: 8px;
+}

@@ -2,6 +2,10 @@
 <button ng-if="!showSpinner" type="button" class="btn btn-info col-md-3" data-toggle="modal" data-target="#exampleModal">
 Add Don
 </button>
+
+<button ng-if="!showSpinner" type="button" class="btn btn-danger col-md-3 pull-right" data-toggle="modal" data-target="#typeModal">
+Add Type
+</button>
 <table class="table table-striped" ng-if="!showSpinner">
   <thead>
     <tr>
@@ -25,19 +29,63 @@ Add Don
 
 
 
-<div id="exampleModal" ng-if="!showSpinner" class="modal" tabindex="-1" role="dialog">
+
+
+
+<div id="typeModal" ng-if="!showSpinner" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Add A New Don</h5>
+        <h3 class="modal-title">Add A New Type</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-		<input type="number" placeholder="quantity" 	ng-value="quantity" ng-model="quantity" />  
-  		<input type="text" placeholder="Description" 	ng-value="doncol" ng-model="doncol"/>  
+		<input type="number" placeholder="type quantity" 	class="form-control"ng-value="typequantity" ng-model="typequantity" />  
+  		<input type="text" placeholder="type name" class="form-control" 	ng-value="typename" ng-model="typename"/>  
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="addType(typequantity,typename)" data-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="exampleModal" ng-if="!showSpinner" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Add A New Don</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	
+  	<select name="mySelect" id="mySelect" class="form-control"
+      ng-options="option[1] for option in  typeList track by option[0]"
+      ng-model="selectedOption"></select>
+		<input type="number" placeholder="quantity"  class="form-control"	ng-value="quantity" ng-model="quantity" />  
+  		<input type="text" placeholder="Description" class="form-control"	ng-value="doncol" ng-model="doncol"/>  
+  	
+   
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" ng-click="addItem()" data-dismiss="modal">Save changes</button>
