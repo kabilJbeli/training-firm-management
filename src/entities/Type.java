@@ -15,7 +15,7 @@ public class Type implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String  id;
+	private int  id;
 	private String name;
 	private int quantite;
 
@@ -30,11 +30,11 @@ public class Type implements Serializable {
 	public Type() {
 	}
 
-	public String  getId() {
+	public int  getId() {
 		return this.id;
 	}
 
-	public void setId(String  id) {
+	public void setId(int  id) {
 		this.id = id;
 	}
 

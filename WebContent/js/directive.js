@@ -62,22 +62,8 @@ $scope.error = data.status;
             }
             
             $scope.addItem = function(quantity,description,type) {
-            	$scope.quantity =quantity
-            	$scope.description=description;
-            	$scope.type = JSON.stringify({            			
-            			id:type[0],
-            			name: type[1],
-            			quantite:type[2]
-            	});
             	
-                var data = {
-                        description: $scope.description,
-                        affectation:1,
-                        quantity: $scope.quantity,
-                        type: $scope.type
-                    };
-            	console.log(data);
-                $http.post("/donManagement/api/dons/add", JSON.stringify(data)).then(function(response) {
+                $http.post("/donManagement/api/dons/add/"+type[0]+"/"+1+"/"+quantity+"/"+description).then(function(response) {
                     $scope.addingItemError=false;
                     $scope.addingItemSuccess=true;
                 	  $http.get("/donManagement/api/dons/getAll").then(function(rep) {

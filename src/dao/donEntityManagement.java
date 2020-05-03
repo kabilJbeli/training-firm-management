@@ -8,6 +8,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -40,12 +41,19 @@ public class donEntityManagement{
 	
 	
 	@POST
-	@Path("/add")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Path("/add/{type}/{affectation}/{quantity}/{description}")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Don addDon(Don don) {
+	public Don addDon(@PathParam("type") int idType,@PathParam("affectation") String affectation,@PathParam("quantity") int quantity,@PathParam("description") String description) {
+		Don don = new Don();
+		don.setAffectation(affectation);
+		don.setDescription(description);
+		don.setQuantity(quantity);
 		try {
-			if (don.getQuantity()<(don.getType().getQuantite() - servicedon.quantiteAjouté(don.getType().getId())))
+			
+			Type type = servicedon.findType(idType);
+			don.setType(type);
+			
+			if (don.getQuantity() < (type.getQuantite() - servicedon.quantiteAjouté(type.getId())))
 			{
 			return servicedon.add(don);
 			}

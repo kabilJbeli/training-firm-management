@@ -66,13 +66,13 @@ public class serviceDonImpl implements serviceDon {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int quantiteAjouté(String  codeTyoe) {
+	public int quantiteAjouté(int  codeType) {
 		EntityTransaction tx = em.getEntityManager().getTransaction();
 		Don don = new Don();
 		try {
 			tx.begin();
 			int quantite = em.getEntityManager().createNativeQuery("select sum(quantity) from don.don where type=?")
-					.setParameter("type", codeTyoe).getFirstResult();
+					.setParameter("type", codeType).getFirstResult();
 			tx.commit();
 			return quantite;
 		} catch (Exception e) {
@@ -153,6 +153,23 @@ public class serviceDonImpl implements serviceDon {
 		return donsList;
 	}
 
+	
+	
+	public Type findType(int code) {
+		// TODO Auto-generated method stub
+		EntityTransaction tx = em.getEntityManager().getTransaction();
+		Type type = new Type();
+		try {
+			tx.begin();
+			type = em.getEntityManager().find(Type.class, code);
+			tx.commit();
+		} catch (Exception e) {
+			em.getEntityManager().getTransaction().rollback();
+			em.getEntityManager().close();
+		}
+		return type;
+	}
+	
 	@Override
 	public Don find(int code) {
 		// TODO Auto-generated method stub

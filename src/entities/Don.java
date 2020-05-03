@@ -17,7 +17,7 @@ public class Don implements Serializable {
 		super();
 	}
 	
-	public Don(int description, String doncol, int quantity, Type type, String affectation) {
+	public Don(String description, String doncol, int quantity, Type type, String affectation) {
 		super();
 		Description = description;
 		this.type = type;
@@ -29,7 +29,7 @@ public class Don implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	private int Description;
+	private String Description;
 	private int quantity;
 	@OneToOne
 	private Type type;
@@ -48,14 +48,14 @@ public class Don implements Serializable {
 
 
 
-	public int getDescription() {
+	public String getDescription() {
 		return Description;
 	}
 
 
 
 
-	public void setDescription(int description) {
+	public void setDescription(String description) {
 		Description = description;
 	}
 
