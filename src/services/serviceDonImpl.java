@@ -66,7 +66,7 @@ public class serviceDonImpl implements serviceDon {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int quantiteAjouté(int codeTyoe) {
+	public int quantiteAjouté(String  codeTyoe) {
 		EntityTransaction tx = em.getEntityManager().getTransaction();
 		Don don = new Don();
 		try {

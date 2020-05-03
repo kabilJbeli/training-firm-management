@@ -6,6 +6,7 @@ AppModule.controller('appCTRL', ['$http', '$scope', '$q', '$log', 'appFactory', 
 
             $scope.sectioncontent = data;
       
+      
         }).catch(function (data) {
             $log.error("Data binding failed with:", data.status, data.statusText, data.data);
         }).finally(function () {

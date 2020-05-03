@@ -42,22 +42,22 @@ AppModule.directive('allDon', function() {
                 });
             }
             
-            $scope.addItem = function() {
-            	var type = {
-            			
-            			id:$scope.selectedOption[0],
-            			name: $scope.selectedOption[1],
-            			quantite:$scope.selectedOption[2]
-            	}
+            $scope.addItem = function(quantity,description,type) {
+            	$scope.quantity =quantity
+            	$scope.description=description;
+            	$scope.type = {            			
+            			id:type[0],
+            			name: type[1],
+            			quantite:type[2]
+            	};
             	
                 var data = {
-
-                        type: type,
-                        description: $scope.doncol,
+                        description: $scope.description,
+                        affectation:1,
                         quantity: $scope.quantity,
-                        doncol:'',
-                        affectation:1
+                        type: $scope.type
                     };
+            	console.log(data);
                 $http.post("/donManagement/api/dons/add", JSON.stringify(data)).then(function(response) {
                 	  $http.get("/donManagement/api/dons/getAll").then(function(rep) {
                           console.log(rep.data);

@@ -10,9 +10,10 @@ Add Type
   <thead>
     <tr>
     <th class="text-center" scope="col">ID</th>
-<th class="text-center" scope="col">Type</th>
-<th class="text-center" scope="col">description</th>
-<th class="text-center" scope="col">Quantity</th>
+    <th class="text-center" scope="col">description</th>
+    <th class="text-center" scope="col">affectation</th>
+    <th class="text-center" scope="col">Quantity</th>
+    <th class="text-center" scope="col">Type</th>
 <th class="text-center" scope="col">Action</th>
     </tr>
   </thead>
@@ -79,16 +80,16 @@ Add Type
       </div>
       <div class="modal-body">
       	
-  	<select name="mySelect" id="mySelect" class="form-control"
-      ng-options="option[1] for option in  typeList track by option[0]"
-      ng-model="selectedOption"></select>
-		<input type="number" placeholder="quantity"  class="form-control"	ng-value="quantity" ng-model="quantity" />  
-  		<input type="text" placeholder="Description" class="form-control"	ng-value="doncol" ng-model="doncol"/>  
+  	<select name="selectedOption" id="mySelect" class="form-control"
+      ng-options=" option[1] for option in  typeList track by option[0]"
+      ng-model="selectedOption" ></select>
+		<input type="number" placeholder="quantity"  class="form-control" ng-model="quantity" />  
+  		<input type="text" placeholder="Description" class="form-control" ng-model="description"/>  
   	
    
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="addItem()" data-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-primary" ng-click="addItem(quantity,description,selectedOption)" data-dismiss="modal">Save changes</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
