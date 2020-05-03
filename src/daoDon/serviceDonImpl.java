@@ -189,7 +189,19 @@ public class serviceDonImpl implements serviceDon {
 	@Override
 	public boolean update(Don don) {
 		// TODO Auto-generated method stub
-		return false;
+		EntityTransaction tx = em.getEntityManager().getTransaction();
+		Boolean isupdated = false;
+		try {
+			tx.begin();
+			don = em.getEntityManager().merge(don);
+			Don searchedDon = em.getEntityManager().find(Don.class, don.getId());
+			tx.commit();
+			isupdated = don.equals(searchedDon);
+		} catch (Exception e) {
+			em.getEntityManager().getTransaction().rollback();
+			em.getEntityManager().close();
+		}
+		return isupdated;
 	}
 
 }
