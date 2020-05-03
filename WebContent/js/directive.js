@@ -61,6 +61,14 @@ $scope.error = data.status;
                 });;
             }
             
+            $scope.displayitem =  function(index){
+            	console.log(index)
+            	if(index === "4"){
+            		return true;
+            	}else{
+            		return false;
+            	}
+            }
             $scope.addItem = function(quantity,description,type) {
             	
                 $http.post("/donManagement/api/dons/add/"+type[0]+"/"+1+"/"+quantity+"/"+description).then(function(response) {
@@ -103,6 +111,40 @@ $scope.error = data.status;
                 });;
             }
 
+        }
+    };
+});
+
+AppModule.directive('findType', function() {
+    return {
+        restrict: 'E',
+        templateUrl: '/donManagement/partial/type.html',
+        scope: {
+            sectioncontent: "="
+        },
+        link: function($scope, scope, elem, attrs) {
+
+        },
+        controller: function($scope, $log,$http) {
+     
+            $scope.error="";
+            $scope.$watch('sectioncontent', function(newValue, oldValue, scope) {
+                //Do anything with $scope.letters
+                if (newValue !== 'undefined' && newValue !== undefined) {
+                    $scope.id = $scope.sectioncontent;
+                        $http.get("/donManagement/api/dons/findDon?code=" + $scope.id).then(function(response) {
+                            console.log(response);
+                            $scope.data = response.data;
+                        }).catch(function (response) {
+                            $log.error("Data binding failed with:", response.status, response.statusText, daresponseta.data);
+                        }).finally(function () {
+                            $log.log("Finally finished data biding.");
+                        });;
+                    
+                }
+            });
+   
+         
         }
     };
 });

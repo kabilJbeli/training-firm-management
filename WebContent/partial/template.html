@@ -28,7 +28,9 @@ Add Type
   </thead>
   <tbody>
 <tr scope="row" ng-repeat=" item in content track by $index" >
-<td  ng-repeat=" i in item track by $index"> {{i}} </td>
+
+<td  ng-repeat=" i in item track by $index" ng-if="!displayitem($index)"> <find-type ng-if="$index == 4" sectioncontent="item[4]"></find-type>  <span ng-if="$index != 4">{{ i }}</span> </td>
+
 <td> 
 <button class="btn btn-danger" ng-click="deleteItem(item[0])">Delete</button> 
 <button class="btn btn-success"> Update</button>
@@ -52,8 +54,9 @@ Add Type
         </button>
       </div>
       <div class="modal-body">
-		<input type="number" placeholder="type quantity" 	class="form-control"ng-value="typequantity" ng-model="typequantity" />  
+      
   		<input type="text" placeholder="type name" class="form-control" 	ng-value="typename" ng-model="typename"/>  
+		<input type="number" placeholder="type quantity" 	class="form-control"ng-value="typequantity" ng-model="typequantity" />  
 
       </div>
       <div class="modal-footer">

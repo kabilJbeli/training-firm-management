@@ -39,7 +39,20 @@ public class donEntityManagement{
 		}
 	}
 	
-	
+	@GET
+	@Path("/findDon")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Type findTypeById(@QueryParam("code") int code) {
+	try {
+					
+		return servicedon.findType(code);
+		
+		}
+	catch(NullPointerException e) {
+		throw e;		
+	}
+	}
+			
 	@POST
 	@Path("/add/{type}/{affectation}/{quantity}/{description}")
 	@Produces({MediaType.APPLICATION_JSON})
