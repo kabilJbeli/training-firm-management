@@ -129,10 +129,13 @@ AppModule.directive('allDon', function() {
             $scope.addItem = function(quantity,description,type) {
             	
                 $http.post("/donManagement/api/dons/add/"+type[0]+"/Non Affecté/"+quantity+"/"+description).then(function(response) {
+                	if(reponse.data !== ""){
                     $scope.addingItemError=false;
                     $scope.addingItemSuccess=true;
                     $scope.getAllDons();
-
+                	}else{
+                        $scope.addingItemtoTypeError=true;
+                	}
                 }).catch(function (data) {
                     $log.error("Data binding failed with:", data.status, data.statusText, data.data);
                     $scope.addingItemError=true;
