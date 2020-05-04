@@ -48,6 +48,7 @@ AppModule.directive('allDon', function() {
             $scope.updatedescription;
             $scope.updatequantity;
             $scope.updateOption;
+            $scope.updateaffectation;
             $scope.updateSelectedItem = function(quantity,desc,option,affectation) {
             	$scope.dataDon.description = desc;
             	$scope.dataDon.quantity = quantity;
