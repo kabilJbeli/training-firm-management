@@ -129,7 +129,7 @@ AppModule.directive('allDon', function() {
             $scope.addItem = function(quantity,description,type) {
             	
                 $http.post("/donManagement/api/dons/add/"+type[0]+"/Non Affecté/"+quantity+"/"+description).then(function(response) {
-                	if(reponse.data !== ""){
+                	if(response.data !== ""){
                     $scope.addingItemError=false;
                     $scope.addingItemSuccess=true;
                     $scope.getAllDons();
