@@ -21,7 +21,18 @@ AppModule.directive('allDon', function() {
                     $scope.showSpinner = false;
                 }
             });
+            $scope.getAllDons = function(){            	
+                $http.get("/donManagement/api/dons/getAll").then(function(rep) {
+                    console.log(rep.data);
+                    $scope.content = rep.data;
+                }).catch(function (data) {
+                    $log.error("Data binding failed with:", data.status, data.statusText, data.data);
+                }).finally(function () {
+                    $log.log("Finally finished data biding.");
+                });
+            }
             
+            $scope.getAllType = function(){ 
             $http.get("/donManagement/api/dons/getTypeList").then(function(rep) {
                 console.log(rep.data);
                 $scope.typeList = rep.data;
@@ -31,6 +42,9 @@ AppModule.directive('allDon', function() {
             }).finally(function () {
                 $log.log("Finally finished data biding.");
             });
+            }
+            
+            $scope.getAllType();
             $scope.updatedescription;
             $scope.updatequantity;
             $scope.updateOption;
@@ -40,14 +54,7 @@ AppModule.directive('allDon', function() {
             	$scope.dataDon.quantity = quantity;
                 $http.put("/donManagement/api/dons/modifyDon",JSON.stringify($scope.dataDon)).then(function(response) {
                     console.log(response);
-                    $http.get("/donManagement/api/dons/getAll").then(function(rep) {
-                        console.log(rep.data);
-                        $scope.content = rep.data;
-                    }).catch(function (data) {
-                        $log.error("Data binding failed with:", data.status, data.statusText, data.data);
-                    }).finally(function () {
-                        $log.log("Finally finished data biding.");
-                    });
+                    $scope.getAllDons();
                     
                 }).catch(function (response) {
                     $log.error("Data binding failed with:", response.status, response.statusText, daresponseta.data);
@@ -98,19 +105,12 @@ AppModule.directive('allDon', function() {
                     $scope.addingItemError=false;
                     $scope.addingItemSuccess=true;
                 	console.log(response);
-                	  $http.get("/donManagement/api/dons/getTypeList").then(function(rep) {
-                          console.log(rep.data);
-                          $scope.typeList = rep.data;
-                      }).catch(function (data) {
-                          $log.error("Data binding failed with:", data.status, data.statusText, data.data);
-                      }).finally(function () {
-                          $log.log("Finally finished data biding.");
-                      });;
+                	$scope.getAllType();
                       
                 }).catch(function (data) {
                     $log.error("Data binding failed with:", data.status, data.statusText, data.data);
                     $scope.addingItemError=true;
-$scope.error = data.status;
+                    $scope.error = data.status;
                 }).finally(function () {
                     $log.log("Finally finished data biding.");
                 });;
@@ -129,14 +129,7 @@ $scope.error = data.status;
                 $http.post("/donManagement/api/dons/add/"+type[0]+"/"+1+"/"+quantity+"/"+description).then(function(response) {
                     $scope.addingItemError=false;
                     $scope.addingItemSuccess=true;
-                	  $http.get("/donManagement/api/dons/getAll").then(function(rep) {
-                          console.log(rep.data);
-                          $scope.content = rep.data;
-                      }).catch(function (data) {
-                          $log.error("Data binding failed with:", data.status, data.statusText, data.data);
-                      }).finally(function () {
-                          $log.log("Finally finished data biding.");
-                      });
+                    $scope.getAllDons();
 
                 }).catch(function (data) {
                     $log.error("Data binding failed with:", data.status, data.statusText, data.data);
@@ -150,14 +143,7 @@ $scope.error = data.status;
             $scope.deleteItem = function(id) {
                 $http.delete("/donManagement/api/dons/removeDon?code=" + id).then(function(response) {
                     console.log(response);
-                    $http.get("/donManagement/api/dons/getAll").then(function(rep) {
-                        console.log(rep);
-                        $scope.content = rep.data;
-                    }).catch(function (rep) {
-                        $log.error("Data binding failed with:", rep.status, rep.statusText, rep.data);
-                    }).finally(function () {
-                        $log.log("Finally finished data biding.");
-                    });;
+                    $scope.getAllDons();
 
                 }).catch(function (response) {
                     $log.error("Data binding failed with:", response.status, response.statusText, daresponseta.data);
