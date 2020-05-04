@@ -26,8 +26,10 @@ public class donEntityManagement{
 	@PUT
 	@Path("/modifyDon")
 	@Consumes({MediaType.APPLICATION_JSON})
-	public Boolean addType(Don don) {
+	public Boolean addType(Don don, @QueryParam("typeid") int idType) {
 		try {
+			Type type = servicedon.findType(idType);
+			don.setType(type);
 			return servicedon.update(don);
 		}catch(NullPointerException e) {
 			throw e;

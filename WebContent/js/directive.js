@@ -48,11 +48,11 @@ AppModule.directive('allDon', function() {
             $scope.updatedescription;
             $scope.updatequantity;
             $scope.updateOption;
-            $scope.updateSelectedItem = function(quantity,desc,option) {
-            	$scope.dataDon.type = option;
+            $scope.updateSelectedItem = function(quantity,desc,option,affectation) {
             	$scope.dataDon.description = desc;
             	$scope.dataDon.quantity = quantity;
-                $http.put("/donManagement/api/dons/modifyDon",JSON.stringify($scope.dataDon)).then(function(response) {
+            	$scope.dataDon.affectation = affectation;
+                $http.put("/donManagement/api/dons/modifyDon?typeid="+option[0],JSON.stringify($scope.dataDon)).then(function(response) {
                     console.log(response);
                     $scope.getAllDons();
                     
@@ -71,6 +71,7 @@ AppModule.directive('allDon', function() {
                  console.log(response);
                  $scope.updatequantity = response.data.quantity;
                  $scope.updatedescription = response.data.description;
+                 $scope.updateaffectation = response.data.affectation;
                  $scope.updateOption = [response.data.type.id,response.data.type.name,response.data.type.quantite];
 
                  $scope.dataDon = {
@@ -126,7 +127,7 @@ AppModule.directive('allDon', function() {
             }
             $scope.addItem = function(quantity,description,type) {
             	
-                $http.post("/donManagement/api/dons/add/"+type[0]+"/"+1+"/"+quantity+"/"+description).then(function(response) {
+                $http.post("/donManagement/api/dons/add/"+type[0]+"/Non Affecté/"+quantity+"/"+description).then(function(response) {
                     $scope.addingItemError=false;
                     $scope.addingItemSuccess=true;
                     $scope.getAllDons();
