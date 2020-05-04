@@ -45,3 +45,21 @@ h3.modal-title {
 .close{
 	cursor:pointer;
 }
+
+#slider{
+	background:url(../img/fund-compare-hero.png) no-repeat;
+	background-size:cover;
+	height:250px;
+	width:100%;
+}
+section#slider h1 {
+    color: #fff;
+    font-family: Arial;
+    font-size: 48px;
+    text-align: center;
+    padding-top: 80px;
+}
+.don-management-section{
+padding-top:50px;
+padding-bottom:50px;	
+}
