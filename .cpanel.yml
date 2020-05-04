@@ -1,5 +1,5 @@
 ---
   deployment:
       tasks:
-        - export DEPLOYPATH=/home/kabiljbe/dons..kabiljbeli.tn/
+        - export DEPLOYPATH=/home/kabiljbe/dons.kabiljbeli.tn/
         - /bin/cp * $DEPLOYPATH
