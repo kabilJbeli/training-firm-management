@@ -40,7 +40,7 @@ public class donEntityManagement{
 	
 	@POST
 	@Path("/addType")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	@Produces({MediaType.APPLICATION_JSON})
 	public Type addType(Type type) {
 		try {
@@ -93,12 +93,14 @@ public class donEntityManagement{
 
 	@DELETE
 	@Path("/removeDon")
+	@Produces({MediaType.TEXT_PLAIN})
 	public void removeDon(@QueryParam("code") int code) {
 		try {			
-			servicedon.remove(code);
-		}catch(NullPointerException e) {
-			throw e;
 			
+				servicedon.remove(code);				
+			
+		}catch(NullPointerException e) {
+throw e;
 		}
 	}
 	

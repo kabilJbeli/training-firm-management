@@ -103,16 +103,21 @@ public class serviceDonImpl implements serviceDon {
 	public void remove(int code) {
 
 		EntityTransaction tx = em.getEntityManager().getTransaction();
-		Don don = new Don();
 		try {
 			tx.begin();
-			don = em.getEntityManager().find(Don.class, code);
-			em.getEntityManager().remove(don);
+			Don don = em.getEntityManager().find(Don.class, code);
+			if(don != null) {
+		    em.getEntityManager().remove(don);
+			}else {
+				System.out.println("The requested Don entity with the following ID "+code+" Doesn't exist in the database");
+			}
 			tx.commit();
+
 		} catch (Exception e) {
 			em.getEntityManager().getTransaction().rollback();
 			em.getEntityManager().close();
 		}
+
 	}
 	
 	

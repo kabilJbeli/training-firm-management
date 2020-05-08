@@ -106,7 +106,6 @@ AppModule.directive('allDon', function() {
                 $http.post("/donManagement/api/dons/addType", JSON.stringify($scope.data)).then(function(response) {
                     $scope.addingItemError=false;
                     $scope.addingItemSuccess=true;
-                	console.log(response);
                 	$scope.getAllType();
                       
                 }).catch(function (data) {
