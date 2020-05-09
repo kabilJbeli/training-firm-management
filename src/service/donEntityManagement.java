@@ -25,7 +25,7 @@ public class donEntityManagement{
 	
 	@PUT
 	@Path("/modifyDon")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Boolean addType(Don don, @QueryParam("typeid") int idType) {
 		try {
 			Type type = servicedon.findType(idType);
@@ -97,7 +97,7 @@ public class donEntityManagement{
 	public void removeDon(@QueryParam("code") int code) {
 		try {			
 			
-				servicedon.remove(code);				
+			servicedon.remove(code);		
 			
 		}catch(NullPointerException e) {
 throw e;

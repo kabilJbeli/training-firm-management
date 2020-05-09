@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 /**
@@ -10,6 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQuery(name="Type.findAll", query="SELECT t FROM Type t")
+@XmlRootElement
 public class Type implements Serializable {
 	private static final long serialVersionUID = 1L;
 
