@@ -34,7 +34,7 @@ public class serviceDonImpl implements serviceDon {
 		    em.getEntityManager().remove(type);
 		    returnContent = "the requested type has been removed with success";
 			}else {				 
-		    returnContent= "IT's impossible to delete this type as it's being used in an existing donation";
+		    returnContent= "It's impossible to delete this type as it's being used in an existing donation";
 			}
 			tx.commit();
 		} catch (Exception e) {
