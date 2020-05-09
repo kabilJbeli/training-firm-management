@@ -16,6 +16,7 @@
 <button ng-if="!showSpinner" type="button" class="btn btn-info col-md-3" data-toggle="modal" data-target="#exampleModal">
 Add Don
 </button>
+<button class="col-md-3 btn btn-success " style="margin-left: 10%;"data-toggle="modal" data-target="#removeType">Remove Types</button>
 
 <button ng-if="!showSpinner" type="button" class="btn btn-danger col-md-3 pull-right" data-toggle="modal" data-target="#typeModal">
 Add Type
@@ -45,10 +46,6 @@ Add Type
 </table>
 
 
-
-
-
-
 <div id="typeModal" ng-if="!showSpinner" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -59,7 +56,6 @@ Add Type
         </button>
       </div>
       <div class="modal-body">
-      <button class="col-md-12 btn btn-danger pull-left" style="margin-bottom: 15px;"data-toggle="modal" data-target="#removeType">Remove Types</button>
   		<input type="text" placeholder="type name" class="form-control" 	ng-value="typename" ng-model="typename"/>  
 		<input type="number" placeholder="type quantity" 	class="form-control"ng-value="typequantity" ng-model="typequantity" />  
 
@@ -71,11 +67,6 @@ Add Type
     </div>
   </div>
 </div>
-
-
-
-
-
 
 
 <div id="updateModal" ng-if="!showSpinner" class="modal" tabindex="-1" role="dialog">
@@ -105,15 +96,6 @@ Add Type
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
 
 
 
