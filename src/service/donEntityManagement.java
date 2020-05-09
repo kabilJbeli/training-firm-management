@@ -38,6 +38,8 @@ public class donEntityManagement{
 	}
 	
 	
+	
+	
 	@POST
 	@Path("/addType")
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
@@ -90,7 +92,20 @@ public class donEntityManagement{
 			
 		}
 	}
-
+	
+	@DELETE
+	@Path("/removeType")
+	@Produces({MediaType.TEXT_HTML})
+	public String removeTypeEntity(@QueryParam("code") int code) {
+		try {			
+			 return "<h3>"+servicedon.removeType(code)+"</h3>";		
+			
+		}catch(NullPointerException e) {
+throw e;
+		}
+	}
+	
+	
 	@DELETE
 	@Path("/removeDon")
 	@Produces({MediaType.TEXT_PLAIN})

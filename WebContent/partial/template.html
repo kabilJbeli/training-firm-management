@@ -59,7 +59,7 @@ Add Type
         </button>
       </div>
       <div class="modal-body">
-      
+      <button class="col-md-12 btn btn-danger pull-left" style="margin-bottom: 15px;"data-toggle="modal" data-target="#removeType">Remove Types</button>
   		<input type="text" placeholder="type name" class="form-control" 	ng-value="typename" ng-model="typename"/>  
 		<input type="number" placeholder="type quantity" 	class="form-control"ng-value="typequantity" ng-model="typequantity" />  
 
@@ -107,6 +107,53 @@ Add Type
 </div>
 
 
+
+
+
+
+
+
+
+
+
+
+<div id="removeType" ng-if="!showSpinner" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Remove a type</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <span class="text-danger text-center" style="display:block; margin-bottom: 30px;" ng-if="removeTypeResponse" ng-bind-html="removeTypeResponse"></span>
+  	<table class="table table-striped" ng-if="!showSpinner">
+  <thead>
+    <tr>
+    <th class="text-center" scope="col">Type ID</th>
+    <th class="text-center" scope="col">Type Name</th>
+    <th class="text-center" scope="col">Requested Quantity</th>
+      <th class="text-center" scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+<tr scope="row" ng-repeat=" item in typeList track by $index" >
+<td  ng-repeat=" i in item track by $index" > {{ i }} </td>
+
+<td> 
+<button class="btn btn-danger" ng-click="deleteType(item[0])">Delete</button> 
+</td>
+</tr>
+  </tbody>
+</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

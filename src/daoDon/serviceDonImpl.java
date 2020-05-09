@@ -20,7 +20,31 @@ public class serviceDonImpl implements serviceDon {
 
 	private entityManagerConexion em = new entityManagerConexion();
 
-	
+	public String removeType(int code) {
+		// TODO Auto-generated method stub
+		EntityTransaction tx = em.getEntityManager().getTransaction();
+		String returnContent;
+		try {
+			tx.begin();
+			Query query = em.getEntityManager().createNativeQuery("select * from don.don where TYPE_ID="+code);
+			int	NumberOfUsedType = query.getResultList().size();
+			System.out.println(NumberOfUsedType+" "+code);
+			Type type = em.getEntityManager().find(Type.class, code);
+			if(NumberOfUsedType == 0  && type != null) {
+		    em.getEntityManager().remove(type);
+		    returnContent = "the requested type has been removed with success";
+			}else {				 
+		    returnContent= "the requested type is  being used with an existing donation";
+			}
+			tx.commit();
+		} catch (Exception e) {
+			em.getEntityManager().getTransaction().rollback();
+			em.getEntityManager().close();
+			returnContent ="An exception has occured";
+		}
+	    return returnContent;
+
+	}
 	
 	
 	public Type addType(Type type) {

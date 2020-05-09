@@ -156,6 +156,18 @@ AppModule.directive('allDon', function() {
                 });;
             }
 
+            $scope.deleteType = function(id) {
+                $http.delete("/donManagement/api/dons/removeType?code=" + id).then(function(response) {
+                    console.log(response);
+                    $scope.getAllType();
+                    $scope.removeTypeResponse= response.data;
+
+                }).catch(function (response) {
+                    $log.error("Data binding failed with:", response.status, response.statusText, daresponseta.data);
+                }).finally(function () {
+                    $log.log("Finally finished data biding.");
+                });;
+            }
         }
     };
 });
