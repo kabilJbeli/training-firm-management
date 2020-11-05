@@ -1,4 +1,4 @@
-package service;
+package com.don.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +14,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import daoDon.serviceDon;
-import daoDon.serviceDonImpl;
-import entities.Don;
-import entities.Type;
+import com.don.dao.serviceDon;
+import com.don.dao.serviceDonImpl;
+import com.don.entities.Don;
+import com.don.entities.Type;
 
 @Path("/dons")
 public class donEntityManagement{

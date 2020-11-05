@@ -5,4 +5,4 @@
  * @author Kabil.Jbeli
  *
  */
-package service;
+package com.don.entities;

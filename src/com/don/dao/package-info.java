@@ -5,4 +5,4 @@
  * @author Kabil.Jbeli
  *
  */
-package entities;
+package com.don.dao;

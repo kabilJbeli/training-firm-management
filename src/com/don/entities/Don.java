@@ -1,4 +1,4 @@
-package entities;
+package com.don.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;

@@ -1,8 +1,8 @@
-package daoDon;
+package com.don.dao;
 
 import java.util.List;
 
-import entities.Don;
+import com.don.entities.Don;
 
 public interface serviceDon {
 

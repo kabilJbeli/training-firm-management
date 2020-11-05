@@ -1,4 +1,4 @@
-package daoDon;
+package com.don.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
