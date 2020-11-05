@@ -1,4 +1,4 @@
-package com.don.dao;
+package daoDon;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -13,8 +13,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import com.don.entities.Don;
-import com.don.entities.Type;
+import entities.Don;
+import entities.Type;
 
 public class serviceDonImpl implements serviceDon {
 
