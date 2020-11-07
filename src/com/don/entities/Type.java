@@ -19,15 +19,6 @@ public class Type implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int  id;
 	private String name;
-	private int quantite;
-
-	public int getQuantite() {
-		return quantite;
-	}
-
-	public void setQuantite(int quantite) {
-		this.quantite = quantite;
-	}
 
 	public Type() {
 	}

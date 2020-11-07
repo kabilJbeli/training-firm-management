@@ -1,6 +1,5 @@
 package service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -13,152 +12,147 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-
-import daoDon.serviceDon;
-import daoDon.serviceDonImpl;
+import com.don.dao.serviceDonImpl;
 import com.don.entities.Don;
+import com.don.entities.StatusDonation;
+import com.don.entities.StatusLivraison;
 import com.don.entities.Type;
 
 @Path("/dons")
-public class donEntityManagement{
+public class donEntityManagement {
 	public serviceDonImpl servicedon = new serviceDonImpl();
-	
+
 	@PUT
 	@Path("/modifyDon")
-	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Boolean addType(Don don, @QueryParam("typeid") int idType) {
 		try {
 			Type type = servicedon.findType(idType);
 			don.setType(type);
 			return servicedon.update(don);
-		}catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			throw e;
-			
 		}
 	}
-	
-	
-	
-	
+
 	@POST
 	@Path("/addType")
-	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	@Produces({MediaType.APPLICATION_JSON})
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces({ MediaType.APPLICATION_JSON })
 	public Type addType(Type type) {
 		try {
 			return servicedon.addType(type);
-		}catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			throw e;
-			
 		}
 	}
-	
+
 	@GET
 	@Path("/findType")
-	@Produces({MediaType.APPLICATION_JSON})
+	@Produces({ MediaType.APPLICATION_JSON })
 	public Type findTypeById(@QueryParam("code") int code) {
-	try {
-					
-		return servicedon.findType(code);
-		
+		try {
+
+			return servicedon.findType(code);
+
+		} catch (NullPointerException e) {
+			throw e;
 		}
-	catch(NullPointerException e) {
-		throw e;		
 	}
-	}
-			
+
 	@POST
 	@Path("/add/{type}/{affectation}/{quantity}/{description}")
-	@Produces({MediaType.APPLICATION_JSON})
-	public Don addDon(@PathParam("type") int idType,@PathParam("affectation") String affectation,@PathParam("quantity") int quantity,@PathParam("description") String description) {
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Don addDon(@PathParam("type") int idType, @PathParam("affectation") String affectation,
+			@PathParam("quantity") int quantity, @PathParam("description") String description) {
 		Don don = new Don();
 		don.setAffectation(affectation);
 		don.setDescription(description);
 		don.setQuantity(quantity);
+		don.setStatusDonation(StatusDonation.Valide);
+		don.setStatusLivraison(StatusLivraison.Attente);
 		try {
-			
+
 			Type type = servicedon.findType(idType);
 			don.setType(type);
-			
-			if (don.getQuantity() < (type.getQuantite() - servicedon.quantiteAjouté(type.getId())))
-			{
-			return servicedon.add(don);
-			}
-			{
-				return null;
-				}
-		}catch(NullPointerException e) {
+//TODO kabil you should test the Quantity asked in need table
+//for all benif vs already donated we talk later about it
+// ask me before doing any thing, the quantity will be asked 
+//by benif and not from configuration and modify the table and create interface too add benif and add need to benif
+//if (don.getQuantity() < (type.getQuantite() - servicedon.quantiteAjouté(type.getId()))) {
+				return servicedon.add(don);
+//			}
+//			
+//				return null;
+//			}
+		} catch (NullPointerException e) {
 			throw e;
-			
-		}
-	}
-	
-	@DELETE
-	@Path("/removeType")
-	@Produces({MediaType.TEXT_HTML})
-	public String removeTypeEntity(@QueryParam("code") int code) {
-		try {			
-			 return "<h3>"+servicedon.removeType(code)+"</h3>";		
-			
-		}catch(NullPointerException e) {
-throw e;
-		}
-	}
-	
-	
-	@DELETE
-	@Path("/removeDon")
-	@Produces({MediaType.TEXT_PLAIN})
-	public void removeDon(@QueryParam("code") int code) {
-		try {			
-			
-			servicedon.remove(code);		
-			
-		}catch(NullPointerException e) {
-throw e;
-		}
-	}
-	
-	@GET
-	@Path("/getAll")
-	@Produces({MediaType.APPLICATION_JSON})
-	public List<Don> getAll() {
-		List<Don> donsList;
-		try {			
-			donsList = servicedon.findAll();
-			return donsList;
-		}catch(NullPointerException e) {
-			throw e;
-			
+
 		}
 	}
 
-	
-	@GET
-	@Path("/getTypeList")
-	@Produces({MediaType.APPLICATION_JSON})
-	public List<Type> getTypeList() {
-		List<Type> typeList;
-		try {			
-			typeList = servicedon.findAllTypes();
-			return typeList;
-		}catch(NullPointerException e) {
+	@DELETE
+	@Path("/removeType")
+	@Produces({ MediaType.TEXT_HTML })
+	public String removeTypeEntity(@QueryParam("code") int code) {
+		try {
+			return "<h3>" + servicedon.removeType(code) + "</h3>";
+
+		} catch (NullPointerException e) {
 			throw e;
-			
 		}
 	}
-	
+
+	@DELETE
+	@Path("/removeDon")
+	@Produces({ MediaType.TEXT_PLAIN })
+	public void removeDon(@QueryParam("code") int code) {
+		try {
+
+			servicedon.remove(code);
+
+		} catch (NullPointerException e) {
+			throw e;
+		}
+	}
+
+	@GET
+	@Path("/getAll")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<Don> getAll() {
+		List<Don> donsList;
+		try {
+			donsList = servicedon.findAll();
+			return donsList;
+		} catch (NullPointerException e) {
+			throw e;
+
+		}
+	}
+
+	@GET
+	@Path("/getTypeList")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<Type> getTypeList() {
+		List<Type> typeList;
+		try {
+			typeList = servicedon.findAllTypes();
+			return typeList;
+		} catch (NullPointerException e) {
+			throw e;
+		}
+	}
+
 	@GET
 	@Path("/getSpecificDon")
-	@Produces({MediaType.APPLICATION_JSON})
+	@Produces({ MediaType.APPLICATION_JSON })
 	public Don getSpecificDon(@QueryParam("id") int id) {
 		Don don;
-		try {			
+		try {
 			don = servicedon.find(id);
 			return don;
-		}catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			throw e;
-			
 		}
 	}
 }

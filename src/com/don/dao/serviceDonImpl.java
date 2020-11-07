@@ -1,4 +1,4 @@
-package daoDon;
+package com.don.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import com.don.entities.Don;
+import com.don.entities.StatusDonation;
+import com.don.entities.StatusLivraison;
 import com.don.entities.Type;
 
 public class serviceDonImpl implements serviceDon {
@@ -13,7 +15,6 @@ public class serviceDonImpl implements serviceDon {
 	private entityManagerConexion em = new entityManagerConexion();
 
 	public String removeType(int code) {
-		// TODO Auto-generated method stub
 		EntityTransaction tx = em.getEntityManager().getTransaction();
 		String returnContent;
 		try {
@@ -95,22 +96,22 @@ public class serviceDonImpl implements serviceDon {
 		}
 	}
 	
-	public int quantitedesire(int codeType) {
-		EntityTransaction tx = em.getEntityManager().getTransaction();
-		List<Type> t = new ArrayList<Type>();
-		Don don = new Don();
-		try {
-			tx.begin();
-			Query  query =  em.getEntityManager().createNativeQuery("select * from type where id="+codeType);
-			t =  query.getResultList();
-			tx.commit();
-			return t.get(0).getQuantite();
-		} catch (Exception e) {
-			em.getEntityManager().getTransaction().rollback();
-			em.getEntityManager().close();
-			return 0;
-		}
-	}
+//	public int quantitedesire(int codeType) {
+//		EntityTransaction tx = em.getEntityManager().getTransaction();
+//		List<Type> t = new ArrayList<Type>();
+//		Don don = new Don();
+//		try {
+//			tx.begin();
+//			Query  query =  em.getEntityManager().createNativeQuery("select * from type where id="+codeType);
+//			t =  query.getResultList();
+//			tx.commit();
+//			return t.get(0).getQuantite();
+//		} catch (Exception e) {
+//			em.getEntityManager().getTransaction().rollback();
+//			em.getEntityManager().close();
+//			return 0;
+//		}
+//	}
 
 	@Override
 	public void remove(int code) {
@@ -120,7 +121,9 @@ public class serviceDonImpl implements serviceDon {
 			tx.begin();
 			Don don = em.getEntityManager().find(Don.class, code);
 			if(don != null) {
-		    em.getEntityManager().remove(don);
+				don.setStatusDonation(StatusDonation.Réfusé);
+				don.setStatusLivraison(StatusLivraison.Annulé);
+				em.getEntityManager().merge(don);
 			}else {
 				System.out.println("The requested Don entity with the following ID "+code+" Doesn't exist in the database");
 			}

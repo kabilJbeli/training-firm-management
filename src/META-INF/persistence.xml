@@ -6,6 +6,7 @@
 		<class>com.don.entities.Type</class>
 		<class>com.don.entities.Benificiere</class>
 		<class>com.don.entities.User</class>
+		<class>com.don.entities.NeedBenificiere</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>		
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
