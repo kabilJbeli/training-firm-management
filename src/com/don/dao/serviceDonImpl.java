@@ -96,22 +96,18 @@ public class serviceDonImpl implements serviceDon {
 		}
 	}
 	
-//	public int quantitedesire(int codeType) {
-//		EntityTransaction tx = em.getEntityManager().getTransaction();
-//		List<Type> t = new ArrayList<Type>();
-//		Don don = new Don();
-//		try {
-//			tx.begin();
-//			Query  query =  em.getEntityManager().createNativeQuery("select * from type where id="+codeType);
-//			t =  query.getResultList();
-//			tx.commit();
-//			return t.get(0).getQuantite();
-//		} catch (Exception e) {
-//			em.getEntityManager().getTransaction().rollback();
-//			em.getEntityManager().close();
-//			return 0;
-//		}
-//	}
+	public int quantitedesire(int codeType) {
+		EntityTransaction tx = em.getEntityManager().getTransaction();
+		try {
+			tx.begin();
+			Query  query =  em.getEntityManager().createNativeQuery("select sum(Quantity) from needBenificiere where id="+codeType);
+			return  query.getFirstResult();
+		} catch (Exception e) {
+			em.getEntityManager().getTransaction().rollback();
+			em.getEntityManager().close();
+			return 0;
+		}
+	}
 
 	@Override
 	public void remove(int code) {

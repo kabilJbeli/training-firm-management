@@ -75,16 +75,9 @@ public class donEntityManagement {
 
 			Type type = servicedon.findType(idType);
 			don.setType(type);
-//TODO kabil you should test the Quantity asked in need table
-//for all benif vs already donated we talk later about it
-// ask me before doing any thing, the quantity will be asked 
-//by benif and not from configuration and modify the table and create interface too add benif and add need to benif
-//if (don.getQuantity() < (type.getQuantite() - servicedon.quantiteAjouté(type.getId()))) {
+            if (don.getQuantity() < (servicedon.quantitedesire(type.getId()) - servicedon.quantiteAjouté(type.getId())))
 				return servicedon.add(don);
-//			}
-//			
-//				return null;
-//			}
+            return null;
 		} catch (NullPointerException e) {
 			throw e;
 
