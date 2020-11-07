@@ -1,20 +1,12 @@
 package daoDon;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Consumer;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
-import entities.Don;
-import entities.Type;
+import com.don.entities.Don;
+import com.don.entities.Type;
 
 public class serviceDonImpl implements serviceDon {
 
@@ -48,7 +40,6 @@ public class serviceDonImpl implements serviceDon {
 	
 	
 	public Type addType(Type type) {
-		// TODO Auto-generated method stub
 		Type T = new Type();
 		try {
 			EntityTransaction tx = em.getEntityManager().getTransaction();
@@ -68,7 +59,6 @@ public class serviceDonImpl implements serviceDon {
 	
 	@Override
 	public Don add(Don don) {
-		// TODO Auto-generated method stub
 		Don d = new Don();
 		try {
 			EntityTransaction tx = em.getEntityManager().getTransaction();
@@ -87,7 +77,6 @@ public class serviceDonImpl implements serviceDon {
 
 	public serviceDonImpl() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public int quantiteAjouté(int  codeType) {
@@ -201,7 +190,6 @@ public class serviceDonImpl implements serviceDon {
 	
 	@Override
 	public Don find(int code) {
-		// TODO Auto-generated method stub
 		EntityTransaction tx = em.getEntityManager().getTransaction();
 		Don don = new Don();
 		try {
@@ -217,7 +205,6 @@ public class serviceDonImpl implements serviceDon {
 
 	@Override
 	public boolean update(Don don) {
-		// TODO Auto-generated method stub
 		EntityTransaction tx = em.getEntityManager().getTransaction();
 		Boolean isupdated = false;
 		try {

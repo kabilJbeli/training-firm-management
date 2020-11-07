@@ -16,8 +16,8 @@ import javax.ws.rs.core.MediaType;
 
 import daoDon.serviceDon;
 import daoDon.serviceDonImpl;
-import entities.Don;
-import entities.Type;
+import com.don.entities.Don;
+import com.don.entities.Type;
 
 @Path("/dons")
 public class donEntityManagement{
