@@ -18,6 +18,7 @@ import daoDon.formationDaoImpl;
 import daoDon.serviceDon;
 import daoDon.serviceDonImpl;
 import entities.Don;
+import entities.Formation;
 import entities.Type;
 
 @Path("/dons")
@@ -37,6 +38,66 @@ throw e;
 	}
 	
 	
+	@POST
+	@Path("/add/formation/{name}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Formation addFormation(@PathParam("name") String name) {
+		Formation f = new Formation();
+		 f.setName(name);
+		try {
+			
+			return serviceformation.add(f);
+			
+		}catch(NullPointerException e) {
+			throw e;
+			
+		}
+	}
+	
+	
+	
+	@GET
+	@Path("/getAll/formations")
+	@Produces({MediaType.APPLICATION_JSON})
+	public List<Formation> getFormationList() {
+		List<Formation> forms;
+		try {			
+			forms = serviceformation.findAll();
+			return forms;
+		}catch(NullPointerException e) {
+			throw e;
+			
+		}
+	}
+	
+	@GET
+	@Path("/getSpecificFormation")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Formation getSpecificFormation(@QueryParam("id") int id) {
+		Formation f;
+		try {			
+			f = serviceformation.find(id);
+			return f;
+		}catch(NullPointerException e) {
+			throw e;
+			
+		}
+	}
+	
+	
+	@PUT
+	@Path("/modifyFormation")
+	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public Boolean updateFormation(@QueryParam("typeid") int id,  @QueryParam("name") String name) {
+		try {
+			Formation f = serviceformation.find(id);
+			 f.setName(name);
+			return serviceformation.update(f);
+		}catch(NullPointerException e) {
+			throw e;
+			
+		}
+	}
 	
 	@PUT
 	@Path("/modifyDon")
