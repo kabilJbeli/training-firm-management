@@ -26,7 +26,7 @@ public class serviceDonImpl implements serviceDon {
 		String returnContent;
 		try {
 			tx.begin();
-			Query query = em.getEntityManager().createNativeQuery("select * from don.don where TYPE_ID="+code);
+			Query query = em.getEntityManager().createNativeQuery("select * from center.don where TYPE_ID="+code);
 			int	NumberOfUsedType = query.getResultList().size();
 			System.out.println(NumberOfUsedType+" "+code);
 			Type type = em.getEntityManager().find(Type.class, code);
@@ -95,7 +95,7 @@ public class serviceDonImpl implements serviceDon {
 		Don don = new Don();
 		try {
 			tx.begin();
-			int quantite = em.getEntityManager().createNativeQuery("select sum(quantity) from don.don where type=?")
+			int quantite = em.getEntityManager().createNativeQuery("select sum(quantity) from center.don where type=?")
 					.setParameter("type", codeType).getFirstResult();
 			tx.commit();
 			return quantite;
@@ -153,7 +153,7 @@ public class serviceDonImpl implements serviceDon {
 
 		try {
 			tx.begin();
-			Query query = em.getEntityManager().createNativeQuery("SELECT * FROM don.type;");
+			Query query = em.getEntityManager().createNativeQuery("SELECT * FROM center.type;");
 			typeList = query.getResultList();
 			tx.commit();
 		} catch (Exception e) {
@@ -172,7 +172,7 @@ public class serviceDonImpl implements serviceDon {
 
 		try {
 			tx.begin();
-			Query query = em.getEntityManager().createNativeQuery("SELECT * FROM don.don;");
+			Query query = em.getEntityManager().createNativeQuery("SELECT * FROM center.don;");
 			donsList = query.getResultList();
 			tx.commit();
 		} catch (Exception e) {

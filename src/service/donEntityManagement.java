@@ -57,7 +57,7 @@ throw e;
 	
 	
 	@GET
-	@Path("/getAll/formations")
+	@Path("/getAllformations")
 	@Produces({MediaType.APPLICATION_JSON})
 	public List<Formation> getFormationList() {
 		List<Formation> forms;
@@ -88,7 +88,7 @@ throw e;
 	@PUT
 	@Path("/modifyFormation")
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	public Boolean updateFormation(@QueryParam("typeid") int id,  @QueryParam("name") String name) {
+	public Boolean updateFormation(@QueryParam("id") int id,  @QueryParam("name") String name) {
 		try {
 			Formation f = serviceformation.find(id);
 			 f.setName(name);

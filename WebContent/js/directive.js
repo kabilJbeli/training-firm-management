@@ -1,7 +1,7 @@
 AppModule.directive('allDon', function() {
     return {
         restrict: 'E',
-        templateUrl: '/donManagement/partial/template.html',
+        templateUrl: '/training-firm-management/partial/template.html',
         scope: {
             sectioncontent: "="
         },
@@ -22,7 +22,7 @@ AppModule.directive('allDon', function() {
                 }
             });
             $scope.getAllDons = function(){            	
-                $http.get("/donManagement/api/dons/getAll").then(function(rep) {
+                $http.get("/training-firm-management/api/dons/getAll").then(function(rep) {
                     console.log(rep.data);
                     $scope.content = rep.data;
                 }).catch(function (data) {
@@ -33,7 +33,7 @@ AppModule.directive('allDon', function() {
             }
             
             $scope.getAllType = function(){ 
-            $http.get("/donManagement/api/dons/getTypeList").then(function(rep) {
+            $http.get("/training-firm-management/api/dons/getTypeList").then(function(rep) {
                 console.log(rep.data);
                 $scope.typeList = rep.data;
                 $scope.selectedOption= $scope.typeList[0];
@@ -53,7 +53,7 @@ AppModule.directive('allDon', function() {
             	$scope.dataDon.description = desc;
             	$scope.dataDon.quantity = quantity;
             	$scope.dataDon.affectation = affectation;
-                $http.put("/donManagement/api/dons/modifyDon?typeid="+option[0],JSON.stringify($scope.dataDon)).then(function(response) {
+                $http.put("/training-firm-management/api/dons/modifyDon?typeid="+option[0],JSON.stringify($scope.dataDon)).then(function(response) {
                     console.log(response);
                     $scope.getAllDons();
                     
@@ -68,7 +68,7 @@ AppModule.directive('allDon', function() {
             
          $scope.updateDon = function(code) {
             	
-             $http.get("/donManagement/api/dons/getSpecificDon?id=" + code).then(function(response) {
+             $http.get("/training-firm-management/api/dons/getSpecificDon?id=" + code).then(function(response) {
                  console.log(response);
                  $scope.updatequantity = response.data.quantity;
                  $scope.updatedescription = response.data.description;
@@ -103,7 +103,7 @@ AppModule.directive('allDon', function() {
             		   quantite: quantity
 
                     };
-                $http.post("/donManagement/api/dons/addType", JSON.stringify($scope.data)).then(function(response) {
+                $http.post("/training-firm-management/api/dons/addType", JSON.stringify($scope.data)).then(function(response) {
                     $scope.addingItemError=false;
                     $scope.addingItemSuccess=true;
                 	$scope.getAllType();
@@ -127,7 +127,7 @@ AppModule.directive('allDon', function() {
             }
             $scope.addItem = function(quantity,description,type) {
             	
-                $http.post("/donManagement/api/dons/add/"+type[0]+"/Non Affecté/"+quantity+"/"+description).then(function(response) {
+                $http.post("/training-firm-management/api/dons/add/"+type[0]+"/Non Affecté/"+quantity+"/"+description).then(function(response) {
                 	if(response.data !== ""){
                     $scope.addingItemError=false;
                     $scope.addingItemSuccess=true;
@@ -145,7 +145,7 @@ AppModule.directive('allDon', function() {
             }
 
             $scope.deleteItem = function(id) {
-                $http.delete("/donManagement/api/dons/removeDon?code=" + id).then(function(response) {
+                $http.delete("/training-firm-management/api/dons/removeDon?code=" + id).then(function(response) {
                     console.log(response);
                     $scope.getAllDons();
 
@@ -157,7 +157,7 @@ AppModule.directive('allDon', function() {
             }
 
             $scope.deleteType = function(id) {
-                $http.delete("/donManagement/api/dons/removeType?code=" + id).then(function(response) {
+                $http.delete("/training-firm-management/api/dons/removeType?code=" + id).then(function(response) {
                     console.log(response);
                     $scope.getAllType();
                     $scope.removeTypeResponse= response.data;
@@ -175,7 +175,7 @@ AppModule.directive('allDon', function() {
 AppModule.directive('findType', function() {
     return {
         restrict: 'E',
-        templateUrl: '/donManagement/partial/type.html',
+        templateUrl: '/training-firm-management/partial/type.html',
         scope: {
             sectioncontent: "="
         },
@@ -189,7 +189,7 @@ AppModule.directive('findType', function() {
                 //Do anything with $scope.letters
                 if (newValue !== 'undefined' && newValue !== undefined) {
                     $scope.id = $scope.sectioncontent;
-                        $http.get("/donManagement/api/dons/findType?code=" + $scope.id).then(function(response) {
+                        $http.get("/training-firm-management/api/dons/findType?code=" + $scope.id).then(function(response) {
                             console.log(response);
                             $scope.data = response.data;
                         }).catch(function (response) {
@@ -206,3 +206,22 @@ AppModule.directive('findType', function() {
     };
 });
 
+
+
+AppModule.directive('globalApp', function() {
+    return {
+        restrict: 'E',
+        templateUrl: '/training-firm-management/partial/globalTemplate.html',
+        scope: {
+            sectioncontent: "="
+        },
+        link: function($scope, scope, elem, attrs) {
+
+        },
+        controller: function($scope, $log,$http) {
+         $scope.employees=false;
+         $scope.training=false;
+        }
+        
+    };
+});

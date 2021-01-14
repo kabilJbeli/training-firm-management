@@ -61,6 +61,16 @@ section#slider h1 {
     font-weight: bold;
 }
 .don-management-section{
-padding-top:50px;
-padding-bottom:50px;	
+padding-top: 25px;
+padding-bottom: 25px;	
+}
+.global-btn{
+	width:100%;
+	display:flex;
+	justify-content:space-around;
+	padding:15px;
+}
+.global-btn button{
+	position:relative;
+	top:-15px;
 }

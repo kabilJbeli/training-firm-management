@@ -10,7 +10,7 @@ public class entityManagerConexion {
 		// TODO Auto-generated constructor stub
 	}
 
-	EntityManagerFactory emf = Persistence.createEntityManagerFactory("donManagement");
+	EntityManagerFactory emf = Persistence.createEntityManagerFactory("centerManagement");
 	EntityManager em =  emf.createEntityManager();
     
     public EntityManager getEntityManager() {    	

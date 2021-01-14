@@ -16,6 +16,6 @@ AppModule
                  */
         
                 return {
-                    request: $http.get("/donManagement/api/dons/getAll")
+                    request: $http.get("/training-firm-management/api/dons/getAll")
                 };
             }]);
