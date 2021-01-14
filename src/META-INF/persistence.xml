@@ -3,9 +3,9 @@
   version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
   <persistence-unit name="centerManagement" transaction-type="RESOURCE_LOCAL">
 <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>  
- 	<class>entities.Don</class>
-		<class>entities.Type</class>
-		<class>entities.Formation</class>
+ 	<class>com.managament.entities.Don</class>
+		<class>com.managament.entities.Type</class>
+		<class>com.managament.entities.Formation</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
       <property name="javax.persistence.jdbc.url"    value="jdbc:mysql://localhost/center" />
