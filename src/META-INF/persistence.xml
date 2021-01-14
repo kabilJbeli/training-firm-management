@@ -3,7 +3,7 @@
   version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
   <persistence-unit name="centerManagement" transaction-type="RESOURCE_LOCAL">
 <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>  
- 	<class>com.managament.entities.Don</class>
+ 	<class>com.managament.entities.Personnel</class>
 		<class>com.managament.entities.Type</class>
 		<class>com.managament.entities.Formation</class>
     <properties>
