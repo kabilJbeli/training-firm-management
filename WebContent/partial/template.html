@@ -16,7 +16,7 @@
 <button ng-if="!showSpinner" type="button" class="btn btn-info col-md-3" data-toggle="modal" data-target="#exampleModal">
 Add Don
 </button>
-<button class="col-md-3 btn btn-success " style="margin-left: 10%;"data-toggle="modal" data-target="#removeType">Remove Types</button>
+<button ng-if="!showSpinner" class="col-md-3 btn btn-success " style="margin-left: 10%;"data-toggle="modal" data-target="#removeType">Remove Types</button>
 
 <button ng-if="!showSpinner" type="button" class="btn btn-danger col-md-3 pull-right" data-toggle="modal" data-target="#typeModal">
 Add Type
@@ -35,7 +35,8 @@ Add Type
   <tbody>
 <tr scope="row" ng-repeat=" item in content track by $index" >
 
-<td  ng-repeat=" i in item track by $index" ng-if="!displayitem($index)"> <find-type ng-if="$index == 4" sectioncontent="item[4]"></find-type>  <span ng-if="$index != 4">{{ i }}</span> </td>
+<td  ng-repeat=" i in item track by $index" ng-if="!displayitem($index)"> 
+<find-type ng-if="$index == 4" sectioncontent="item[4]"></find-type>  <span ng-if="$index != 4">{{ i }}</span> </td>
 
 <td> 
 <button class="btn btn-danger" ng-click="deleteItem(item[0])">Delete</button> 
