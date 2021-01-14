@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import com.managament.entities.Don;
 import com.managament.entities.Formation;
 
 public class formationDaoImpl implements formationDao {

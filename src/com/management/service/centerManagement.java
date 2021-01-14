@@ -14,16 +14,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.managament.entities.Don;
 import com.managament.entities.Formation;
+import com.managament.entities.Personnel;
 import com.managament.entities.Type;
 import com.management.dao.formationDaoImpl;
-import com.management.dao.serviceDon;
-import com.management.dao.serviceDonImpl;
+import com.management.dao.PersonnelDao;
 
 @Path("/dons")
-public class donEntityManagement{
-	public serviceDonImpl servicedon = new serviceDonImpl();
+public class centerManagement{
+	public PersonnelDao servicedon = new PersonnelDao();
 	public formationDaoImpl serviceformation = new formationDaoImpl();
 
 	@DELETE
@@ -99,20 +98,18 @@ throw e;
 		}
 	}
 	
-	@PUT
-	@Path("/modifyDon")
-	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	public Boolean addType(Don don, @QueryParam("typeid") int idType) {
-		try {
-			Type type = servicedon.findType(idType);
-			don.setType(type);
-			return servicedon.update(don);
-		}catch(NullPointerException e) {
-			throw e;
-			
-		}
-	}
-	
+//	@PUT
+//	@Path("/modifyDon")
+//	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+//	public Boolean addType(Personnel perso, @QueryParam("typeid") int idType) {
+//		try {
+//			return servicedon.update(perso);
+//		}catch(NullPointerException e) {
+//			throw e;
+//			
+//		}
+//	}
+//	
 	
 	
 	
@@ -143,31 +140,31 @@ throw e;
 	}
 	}
 			
-	@POST
-	@Path("/add/{type}/{affectation}/{quantity}/{description}")
-	@Produces({MediaType.APPLICATION_JSON})
-	public Don addDon(@PathParam("type") int idType,@PathParam("affectation") String affectation,@PathParam("quantity") int quantity,@PathParam("description") String description) {
-		Don don = new Don();
-		don.setAffectation(affectation);
-		don.setDescription(description);
-		don.setQuantity(quantity);
-		try {
-			
-			Type type = servicedon.findType(idType);
-			don.setType(type);
-			
-			if (don.getQuantity() < (type.getQuantite() - servicedon.quantiteAjouté(type.getId())))
-			{
-			return servicedon.add(don);
-			}
-			{
-				return null;
-				}
-		}catch(NullPointerException e) {
-			throw e;
-			
-		}
-	}
+//	@POST
+//	@Path("/add/{type}/{affectation}/{quantity}/{description}")
+//	@Produces({MediaType.APPLICATION_JSON})
+//	public Don addDon(@PathParam("type") int idType,@PathParam("affectation") String affectation,@PathParam("quantity") int quantity,@PathParam("description") String description) {
+//		Don don = new Don();
+//		don.setAffectation(affectation);
+//		don.setDescription(description);
+//		don.setQuantity(quantity);
+//		try {
+//			
+//			Type type = servicedon.findType(idType);
+//			don.setType(type);
+//			
+//			if (don.getQuantity() < (type.getQuantite() - servicedon.quantiteAjouté(type.getId())))
+//			{
+//			return servicedon.add(don);
+//			}
+//			{
+//				return null;
+//				}
+//		}catch(NullPointerException e) {
+//			throw e;
+//			
+//		}
+//	}
 	
 	@DELETE
 	@Path("/removeType")
@@ -198,8 +195,8 @@ throw e;
 	@GET
 	@Path("/getAll")
 	@Produces({MediaType.APPLICATION_JSON})
-	public List<Don> getAll() {
-		List<Don> donsList;
+	public List<Personnel> getAll() {
+		List<Personnel> donsList;
 		try {			
 			donsList = servicedon.findAll();
 			return donsList;
@@ -225,13 +222,13 @@ throw e;
 	}
 	
 	@GET
-	@Path("/getSpecificDon")
+	@Path("/getSpecificPerso")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Don getSpecificDon(@QueryParam("id") int id) {
-		Don don;
+	public Personnel getSpecificPersonnel(@QueryParam("id") int id) {
+		Personnel perso;
 		try {			
-			don = servicedon.find(id);
-			return don;
+			perso = servicedon.find(id);
+			return perso;
 		}catch(NullPointerException e) {
 			throw e;
 			

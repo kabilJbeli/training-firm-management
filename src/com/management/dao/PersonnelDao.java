@@ -1,22 +1,15 @@
 package com.management.dao;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Consumer;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
-import com.managament.entities.Don;
+import com.managament.entities.Personnel;
 import com.managament.entities.Type;
 
-public class serviceDonImpl implements serviceDon {
+public class PersonnelDao implements PersonnelInterface {
 
 	private entityManagerConexion em = new entityManagerConexion();
 
@@ -67,61 +60,28 @@ public class serviceDonImpl implements serviceDon {
 	
 	
 	@Override
-	public Don add(Don don) {
-		// TODO Auto-generated method stub
-		Don d = new Don();
+	public Personnel add(Personnel personnel) {
+		Personnel personne = new Personnel();
 		try {
 			EntityTransaction tx = em.getEntityManager().getTransaction();
 			tx.begin();
-			em.getEntityManager().persist(don);
+			em.getEntityManager().persist(personnel);
 			tx.commit();
-			d = em.getEntityManager().find(Don.class, don.getId());
+			personne = em.getEntityManager().find(Personnel.class, personnel.getId());
 
 		} catch (IllegalStateException e) {
 			em.getEntityManager().getTransaction().rollback();
 			em.getEntityManager().close();
 		}
-		return d;
+		return personne;
 
 	}
 
-	public serviceDonImpl() {
+	public PersonnelDao() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public int quantiteAjouté(int  codeType) {
-		EntityTransaction tx = em.getEntityManager().getTransaction();
-		Don don = new Don();
-		try {
-			tx.begin();
-			int quantite = em.getEntityManager().createNativeQuery("select sum(quantity) from center.don where type=?")
-					.setParameter("type", codeType).getFirstResult();
-			tx.commit();
-			return quantite;
-		} catch (Exception e) {
-			em.getEntityManager().getTransaction().rollback();
-			em.getEntityManager().close();
-			return 0;
-		}
-	}
-	
-	public int quantitedesire(int codeType) {
-		EntityTransaction tx = em.getEntityManager().getTransaction();
-		List<Type> t = new ArrayList<Type>();
-		Don don = new Don();
-		try {
-			tx.begin();
-			Query  query =  em.getEntityManager().createNativeQuery("select * from type where id="+codeType);
-			t =  query.getResultList();
-			tx.commit();
-			return t.get(0).getQuantite();
-		} catch (Exception e) {
-			em.getEntityManager().getTransaction().rollback();
-			em.getEntityManager().close();
-			return 0;
-		}
-	}
 
 	@Override
 	public void remove(int code) {
@@ -129,11 +89,11 @@ public class serviceDonImpl implements serviceDon {
 		EntityTransaction tx = em.getEntityManager().getTransaction();
 		try {
 			tx.begin();
-			Don don = em.getEntityManager().find(Don.class, code);
+			Personnel don = em.getEntityManager().find(Personnel.class, code);
 			if(don != null) {
 		    em.getEntityManager().remove(don);
 			}else {
-				System.out.println("The requested Don entity with the following ID "+code+" Doesn't exist in the database");
+				System.out.println("The requested entity with the following ID "+code+" Doesn't exist in the database");
 			}
 			tx.commit();
 
@@ -165,10 +125,10 @@ public class serviceDonImpl implements serviceDon {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Don> findAll() {
+	public List<Personnel> findAll() {
 		// TODO Auto-generated method stub
 		EntityTransaction tx = em.getEntityManager().getTransaction();
-		List<Don> donsList = new ArrayList<Don>();
+		List<Personnel> donsList = new ArrayList<Personnel>();
 
 		try {
 			tx.begin();
@@ -200,32 +160,32 @@ public class serviceDonImpl implements serviceDon {
 	}
 	
 	@Override
-	public Don find(int code) {
+	public Personnel find(int code) {
 		// TODO Auto-generated method stub
 		EntityTransaction tx = em.getEntityManager().getTransaction();
-		Don don = new Don();
+		Personnel personnel = new Personnel();
 		try {
 			tx.begin();
-			don = em.getEntityManager().find(Don.class, code);
+			personnel = em.getEntityManager().find(Personnel.class, code);
 			tx.commit();
 		} catch (Exception e) {
 			em.getEntityManager().getTransaction().rollback();
 			em.getEntityManager().close();
 		}
-		return don;
+		return personnel;
 	}
 
 	@Override
-	public boolean update(Don don) {
+	public boolean update(Personnel perso) {
 		// TODO Auto-generated method stub
 		EntityTransaction tx = em.getEntityManager().getTransaction();
 		Boolean isupdated = false;
 		try {
 			tx.begin();
-			don = em.getEntityManager().merge(don);
-			Don searchedDon = em.getEntityManager().find(Don.class, don.getId());
+			perso = em.getEntityManager().merge(perso);
+			Personnel searchedDon = em.getEntityManager().find(Personnel.class, perso.getId());
 			tx.commit();
-			isupdated = don.equals(searchedDon);
+			isupdated = perso.equals(searchedDon);
 		} catch (Exception e) {
 			em.getEntityManager().getTransaction().rollback();
 			em.getEntityManager().close();
