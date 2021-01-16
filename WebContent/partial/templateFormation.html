@@ -13,9 +13,11 @@
 <a href="#" class="close" onclick="$('.alert-success').addClass('ng-hide')" title="close">X</a>
   <strong> Success!</strong> a new Item/Type has been added with success.
 </div>
+<div class="addBtnWrrapper">
 <button ng-if="!showSpinner" type="button" class="btn btn-info col-md-3" data-toggle="modal" data-target="#addFormationModal">
-Add A New Training Session
+Add A New Training
 </button>
+</div>
 <table class="table table-striped" ng-if="!showSpinner">
   <thead>
     <tr>
@@ -44,7 +46,7 @@ Add A New Training Session
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title">Add A New Training Session</h3>
+        <h3 class="modal-title">Add A New Training</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

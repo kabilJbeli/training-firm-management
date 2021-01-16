@@ -111,3 +111,15 @@ button.clicked {
 	padding: 15px;
     background: #fafafa;
 }
+.addBtnWrrapper button {
+    border-radius: 0;
+}
+td button {
+    border-radius: 0px !important;
+}
+.addBtnWrrapper{
+	width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
