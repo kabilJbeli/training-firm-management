@@ -117,6 +117,9 @@ button.clicked {
 td button {
     border-radius: 0px !important;
 }
+.modal-body input {
+    margin-top: 0px;
+}
 .addBtnWrrapper{
 	width: 100%;
     display: flex;

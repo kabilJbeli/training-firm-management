@@ -60,12 +60,14 @@ Add New Employee
         </button>
       </div>
       <div class="modal-body">
-      	
+      	  <label>Employee Name</label>
   		<input type="text" placeholder="Employee name"  class="form-control" ng-model="updatename" />  
+  		  <label>Employee Lastname</label>
   		<input type="text" placeholder="Employee lastname" class="form-control" ng-model="updatelastname"/>  
+  		  <label>Per hour pay</label>
   	  		<input type="number" placeholder="Per hour pay" class="form-control" ng-model="updatehonoraire"/>  
   	
-      	      	
+      	      	  <label>Post</label>
   	<select name="updateselectedOption" id="mySelect" class="form-control"
       ng-options=" option for option in  typeList "
       ng-model="updateselectedOption" ></select>
@@ -104,12 +106,14 @@ Add New Employee
       </div>
       <div class="modal-body">
       	
-      	
+      	  <label>Employee name</label>
 		<input type="text" placeholder="Employee name"  class="form-control" ng-model="name" />  
+		  <label>Employee Lastname</label>
   		<input type="text" placeholder="Employee lastname" class="form-control" ng-model="lastname"/>  
+  		  <label>Per hour pay</label>
   	  		<input type="number" placeholder="Per hour pay" class="form-control" ng-model="honoraire"/>  
   	
-      	      	
+      	    <label>Post</label>    	
   	<select name="selectedOption" id="mySelect" class="form-control"
       ng-options=" option for option in  typeList "
       ng-model="selectedOption" ></select>
