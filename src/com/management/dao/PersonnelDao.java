@@ -1,5 +1,6 @@
 package com.management.dao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,11 +8,24 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import com.managament.entities.Personnel;
+import com.managament.entities.Poste;
 import com.managament.entities.Type;
 
 public class PersonnelDao implements PersonnelInterface {
 
 	private entityManagerConexion em = new entityManagerConexion();
+	
+	
+	
+	public List<Poste> getAllPosts() {
+		// TODO Auto-generated method stub
+		List<Poste> al = new ArrayList<Poste>();
+		al.add(Poste.Professeur);
+		al.add(Poste.Gestionnaire);
+		al.add(Poste.Formateur);
+		
+		return al;
+	}
 
 	public String removeType(int code) {
 		// TODO Auto-generated method stub
@@ -19,7 +33,7 @@ public class PersonnelDao implements PersonnelInterface {
 		String returnContent;
 		try {
 			tx.begin();
-			Query query = em.getEntityManager().createNativeQuery("select * from center.don where TYPE_ID="+code);
+			Query query = em.getEntityManager().createNativeQuery("select * from center-test.don where TYPE_ID="+code);
 			int	NumberOfUsedType = query.getResultList().size();
 			System.out.println(NumberOfUsedType+" "+code);
 			Type type = em.getEntityManager().find(Type.class, code);
@@ -59,7 +73,7 @@ public class PersonnelDao implements PersonnelInterface {
 	}
 	
 	
-	@Override
+	
 	public Personnel add(Personnel personnel) {
 		Personnel personne = new Personnel();
 		try {
@@ -83,7 +97,7 @@ public class PersonnelDao implements PersonnelInterface {
 	}
 
 
-	@Override
+	
 	public void remove(int code) {
 
 		EntityTransaction tx = em.getEntityManager().getTransaction();
@@ -113,7 +127,7 @@ public class PersonnelDao implements PersonnelInterface {
 
 		try {
 			tx.begin();
-			Query query = em.getEntityManager().createNativeQuery("SELECT * FROM center.type;");
+			Query query = em.getEntityManager().createNativeQuery("SELECT * FROM center-test.type;");
 			typeList = query.getResultList();
 			tx.commit();
 		} catch (Exception e) {
@@ -124,7 +138,7 @@ public class PersonnelDao implements PersonnelInterface {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public List<Personnel> findAll() {
 		// TODO Auto-generated method stub
 		EntityTransaction tx = em.getEntityManager().getTransaction();
@@ -132,7 +146,7 @@ public class PersonnelDao implements PersonnelInterface {
 
 		try {
 			tx.begin();
-			Query query = em.getEntityManager().createNativeQuery("SELECT * FROM center.don;");
+			Query query = em.getEntityManager().createNativeQuery("SELECT * FROM `center-test`.personnel;");
 			donsList = query.getResultList();
 			tx.commit();
 		} catch (Exception e) {
@@ -159,7 +173,7 @@ public class PersonnelDao implements PersonnelInterface {
 		return type;
 	}
 	
-	@Override
+	
 	public Personnel find(int code) {
 		// TODO Auto-generated method stub
 		EntityTransaction tx = em.getEntityManager().getTransaction();
@@ -175,7 +189,7 @@ public class PersonnelDao implements PersonnelInterface {
 		return personnel;
 	}
 
-	@Override
+	
 	public boolean update(Personnel perso) {
 		// TODO Auto-generated method stub
 		EntityTransaction tx = em.getEntityManager().getTransaction();

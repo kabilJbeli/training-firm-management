@@ -15,7 +15,27 @@ public class Formation implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String name;
+	
+	private int matiere;
+	public int getMatiere() {
+		return matiere;
+	}
 
+	public void setMatiere(int matiere) {
+		this.matiere = matiere;
+	}
+
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+
+
+	private String theme;
+	
 	public int getId() {
 		return id;
 	}

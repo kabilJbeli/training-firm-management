@@ -16,7 +16,6 @@ public class formationDaoImpl implements formationDao {
 
 	private entityManagerConexion em = new entityManagerConexion();
 
-	@Override
 	public Formation add(Formation form) {
 		// TODO Auto-generated method stub
 		Formation f = new Formation();
@@ -34,7 +33,6 @@ public class formationDaoImpl implements formationDao {
 		return f;
 	}
 
-	@Override
 	public void remove(int code) {
 		// TODO Auto-generated method stub
 
@@ -56,7 +54,6 @@ public class formationDaoImpl implements formationDao {
 		}
 	}
 
-	@Override
 	public List<Formation> findAll() {
 		// TODO Auto-generated method stub
 		EntityTransaction tx = em.getEntityManager().getTransaction();
@@ -64,7 +61,7 @@ public class formationDaoImpl implements formationDao {
 
 		try {
 			tx.begin();
-			Query query = em.getEntityManager().createNativeQuery("SELECT * FROM center.Formation;");
+			Query query = em.getEntityManager().createNativeQuery("SELECT * FROM `center-test`.formation;");
 			Forms = query.getResultList();
 			tx.commit();
 		} catch (Exception e) {
@@ -74,7 +71,6 @@ public class formationDaoImpl implements formationDao {
 		return Forms;
 	}
 
-	@Override
 	public Formation find(int code) {
 		// TODO Auto-generated method stub
 		EntityTransaction tx = em.getEntityManager().getTransaction();
@@ -90,7 +86,6 @@ public class formationDaoImpl implements formationDao {
 		return f;
 	}
 
-	@Override
 	public boolean update(Formation form) {
 		// TODO Auto-generated method stub
 		EntityTransaction tx = em.getEntityManager().getTransaction();

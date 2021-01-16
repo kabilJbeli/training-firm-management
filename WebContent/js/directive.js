@@ -33,7 +33,7 @@ AppModule.directive('allDon', function() {
             }
             
             $scope.getAllType = function(){ 
-            $http.get("/training-firm-management/api/dons/getTypeList").then(function(rep) {
+            $http.get("/training-firm-management/api/dons/getAllPostes").then(function(rep) {
                 console.log(rep.data);
                 $scope.typeList = rep.data;
                 $scope.selectedOption= $scope.typeList[0];
@@ -49,12 +49,12 @@ AppModule.directive('allDon', function() {
             $scope.updatequantity;
             $scope.updateOption;
             $scope.updateaffectation;
-            $scope.updateSelectedItem = function(quantity,desc,option,affectation) {
-            	$scope.dataDon.description = desc;
-            	$scope.dataDon.quantity = quantity;
-            	$scope.dataDon.affectation = affectation;
-                $http.put("/training-firm-management/api/dons/modifyDon?typeid="+option[0],JSON.stringify($scope.dataDon)).then(function(response) {
-                    console.log(response);
+            $scope.updateSelectedItem = function(name,lastname,honoraire,poste) {
+            	$scope.dataDon.nom = name;
+            	$scope.dataDon.prenom = lastname;
+            	$scope.dataDon.honoraireparheure = honoraire;
+	$scope.dataDon.poste = poste;
+                $http.put("/training-firm-management/api/dons/modifyEmployee?typeid="+$scope.dataDon.id,JSON.stringify($scope.dataDon)).then(function(response) {
                     $scope.getAllDons();
                     
                 }).catch(function (response) {
@@ -68,19 +68,17 @@ AppModule.directive('allDon', function() {
             
          $scope.updateDon = function(code) {
             	
-             $http.get("/training-firm-management/api/dons/getSpecificDon?id=" + code).then(function(response) {
-                 console.log(response);
-                 $scope.updatequantity = response.data.quantity;
-                 $scope.updatedescription = response.data.description;
-                 $scope.updateaffectation = response.data.affectation;
-                 $scope.updateOption = [response.data.type.id,response.data.type.name,response.data.type.quantite];
+             $http.get("/training-firm-management/api/dons/getSpecificEmployee?id=" + code).then(function(response) {
+                 $scope.name = response.data.nom;
+                 $scope.lastname = response.data.prenom;
+                 $scope.updateaffectation = response.data.honoraireparheure;
 
                  $scope.dataDon = {
                 		 id:response.data.id,
-                		 description:$scope.updatedescription,
-                		 quantity:$scope.updatequantity,
-                		 affectation: response.data.affectation,
-                		 type:response.data.type
+                		 nom:$scope.name,
+                		 prenom:$scope.lastname,
+                		 honoraireparheure: response.data.honoraireparheure,
+                		 poste:response.data.poste
                  };
                  
              }).catch(function (response) {
@@ -92,42 +90,11 @@ AppModule.directive('allDon', function() {
             }
             
             
-            
-            
-            
-            
-            $scope.addType = function(quantity,name) {
-               $scope.data = {    
 
-                       name: name,
-            		   quantite: quantity
-
-                    };
-                $http.post("/training-firm-management/api/dons/addType", JSON.stringify($scope.data)).then(function(response) {
-                    $scope.addingItemError=false;
-                    $scope.addingItemSuccess=true;
-                	$scope.getAllType();
-                      
-                }).catch(function (data) {
-                    $log.error("Data binding failed with:", data.status, data.statusText, data.data);
-                    $scope.addingItemError=true;
-                    $scope.error = data.status;
-                }).finally(function () {
-                    $log.log("Finally finished data biding.");
-                });;
-            }
-            
-            $scope.displayitem =  function(index){
-            	console.log(index)
-            	if(index === "4"){
-            		return true;
-            	}else{
-            		return false;
-            	}
-            }
-            $scope.addItem = function(quantity,description,type) {
+          
+            $scope.addItem = function(name,lastname,honoraire,post) {
             	
-                $http.post("/training-firm-management/api/dons/add/"+type[0]+"/Non Affecté/"+quantity+"/"+description).then(function(response) {
+                $http.post("/training-firm-management/api/dons/add/"+name+"/"+lastname+"/"+honoraire+"/"+post).then(function(response) {
                 	if(response.data !== ""){
                     $scope.addingItemError=false;
                     $scope.addingItemSuccess=true;
@@ -145,7 +112,7 @@ AppModule.directive('allDon', function() {
             }
 
             $scope.deleteItem = function(id) {
-                $http.delete("/training-firm-management/api/dons/removeDon?code=" + id).then(function(response) {
+                $http.delete("/training-firm-management/api/dons/removeEmployee?code=" + id).then(function(response) {
                     console.log(response);
                     $scope.getAllDons();
 
@@ -221,6 +188,113 @@ AppModule.directive('globalApp', function() {
         controller: function($scope, $log,$http) {
          $scope.employees=false;
          $scope.training=false;
+$scope.buttonclicked=false;
+         $scope.subject=false;
+        }
+        
+    };
+});
+
+
+
+
+AppModule.directive('allSubject', function() {
+    return {
+        restrict: 'E',
+        templateUrl: '/training-firm-management/partial/subjectTemplate.html',
+        scope: {
+        },
+        link: function($scope, scope, elem, attrs) {
+
+        },
+        controller: function($scope, $log,$http) {
+            $scope.showSpinner = true;
+            $scope.addingItemError=false;
+            $scope.addingItemSuccess=false;
+
+            $scope.error="";
+      
+            $scope.getAllFormation = function(){            	
+                $http.get("/training-firm-management/api/dons/getAllMatiere").then(function(rep) {
+                    $scope.content = rep.data;
+                    $scope.showSpinner=false;
+                }).catch(function (data) {
+                    $log.error("Data binding failed with:", data.status, data.statusText, data.data);
+                }).finally(function () {
+                    $log.log("Finally finished data biding.");
+                });
+            }
+             $scope.getAllFormation();
+            
+                   $scope.addItem = function(employee,name,theme,salle) {
+            	
+                $http.post("/training-firm-management/api/dons/add/matiere/"+employee+"/"+name+"/"+theme+"/"+salle).then(function(response) {
+                	if(response.data !== ""){
+                    $scope.addingItemError=false;
+                    $scope.addingItemSuccess=true;
+                    $scope.getAllFormation();
+                	}else{
+                        $scope.addingItemtoTypeError=true;
+                	}
+                }).catch(function (data) {
+                    $log.error("Data binding failed with:", data.status, data.statusText, data.data);
+                    $scope.addingItemError=true;
+                    $scope.error = data.status;
+                }).finally(function () {
+                    $log.log("Finally finished data biding.");
+                });;
+            }
+            
+            
+                  $scope.deleteItem = function(id) {
+                $http.delete("/training-firm-management/api/dons/removeMatiere?code=" + id).then(function(response) {
+                    console.log(response);
+                    $scope.getAllFormation();
+
+                }).catch(function (response) {
+                    $log.error("Data binding failed with:", response.status, response.statusText, daresponseta.data);
+                }).finally(function () {
+                    $log.log("Finally finished data biding.");
+                });;
+            }
+    
+    
+    
+       $scope.updateSelectedItem = function(employee,name,theme,salle) {
+       console.log(name);
+            	$scope.dataFormation.name = name;
+                $http.put("/training-firm-management/api/dons/modifyMatiere?id="+$scope.dataFormation.id+"&name="+name+"&theme="+theme+"&employee="+employee+"&salle="+salle).then(function(response) {
+                    console.log(response);
+                    $scope.getAllFormation();
+                    
+                }).catch(function (response) {
+                    $log.error("Data binding failed with:", response.status, response.statusText, daresponseta.data);
+                }).finally(function () {
+                    $log.log("Finally finished data biding.");
+                });;
+           	
+               }
+    
+     $scope.dataFormation={};
+     
+    $scope.updateDon = function(code) {
+            	
+             $http.get("/training-firm-management/api/dons/getSpecificMatiere?id=" + code).then(function(response) {
+                 $scope.name = response.data.name;
+
+                 $scope.dataFormation = {
+                		 id:response.data.id,
+                		 name:$scope.name
+                 };
+                 
+             }).catch(function (response) {
+                 $log.error("Data binding failed with:", response.status, response.statusText, daresponseta.data);
+             }).finally(function () {
+                 $log.log("Finally finished data biding.");
+             });;
+        	
+            }
+      
         }
         
     };

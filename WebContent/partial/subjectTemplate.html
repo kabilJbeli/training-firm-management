@@ -14,15 +14,16 @@
   <strong> Success!</strong> a new Item/Type has been added with success.
 </div>
 <button ng-if="!showSpinner" type="button" class="btn btn-info col-md-3" data-toggle="modal" data-target="#addFormationModal">
-Add A New Training Session
+Add A New Subject
 </button>
 <table class="table table-striped" ng-if="!showSpinner">
   <thead>
     <tr>
     <th class="text-center" scope="col">ID</th>
-        <th class="text-center" scope="col">Subject name</th>
-    <th class="text-center" scope="col">Formation name</th>
-     <th class="text-center" scope="col">Theme</th>
+        <th class="text-center" scope="col">Employee</th>
+    <th class="text-center" scope="col">Subject name</th>
+     <th class="text-center" scope="col">Salle</th>
+          <th class="text-center" scope="col">Theme</th>
 <th class="text-center" scope="col">Action</th>
     </tr>
   </thead>
@@ -50,18 +51,16 @@ Add A New Training Session
         </button>
       </div>
       <div class="modal-body">
+    		<input type="number" placeholder="Employee" class="form-control" ng-model="employee"/>  
   
-  		<input type="text" placeholder="Training Session Name" class="form-control" ng-model="name"/>  
-  	  	<input type="text" placeholder="Training Session Theme" class="form-control" ng-model="theme"/>  
+  		<input type="text" placeholder="Subject Name" class="form-control" ng-model="name"/>  
+  	  	<input type="text" placeholder="Theme" class="form-control" ng-model="theme"/>  
+  	  	 <input type="text" placeholder="Salle" class="form-control" ng-model="salle"/>  
   	
-   <select name="updateselectedOption" id="mySelect" class="form-control"
-
-      ng-model="updateselectedOption" >
-      <option ng-repeat="option in  matiereContent" value="{{option[0]}}">{{option[2]}}</option>
-      </select>
+   
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="addItem(name,theme,updateselectedOption)" data-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-primary" ng-click="addItem(employee,name,theme,salle)" data-dismiss="modal">Save changes</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -74,26 +73,23 @@ Add A New Training Session
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title">Update Training</h3>
+        <h3 class="modal-title">Update Subject</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
       	
+   	  	 		<input type="number" placeholder="Employee" class="form-control" ng-model="updateemployee"/>  
  
   		<input type="text" placeholder="Training Session Name" class="form-control" ng-model="updatedname"/>  
   	  	  	<input type="text" placeholder="Training Session Theme" class="form-control" ng-model="updatetheme"/>  
-  	  	       	      	
-  	   <select name="updateselectedOption" id="mySelect" class="form-control"
-
-      ng-model="updateselectedOption" >
-      <option ng-repeat="option in  matiereContent" value="{{option[0]}}">{{option[2]}}</option>
-      </select>
-      
+  	  	 <input type="text" placeholder="Training Session Subject" class="form-control" ng-model="updatesalle"/>  
+  	  	  
+   
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="updateSelectedItem(updatedname,updatetheme,updateselectedOption)" data-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-primary" ng-click="updateSelectedItem(updateemployee,updatedname,updatetheme,updatesalle)" data-dismiss="modal">Save changes</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>

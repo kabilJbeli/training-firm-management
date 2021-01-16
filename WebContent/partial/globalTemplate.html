@@ -1,8 +1,10 @@
-<div class="global-btn">
-<button ng-click="training = true; employees=false;">Manage Training Session</button>
-<button ng-click="employees = true; training = false;">Manage Employees</button>
+<div class="global-btn" ng-class="{'buttonclicked':  buttonclicked == true }">
+<button ng-class="{'clicked':  training == true }" ng-click="training = true; employees=false; subject=false; buttonclicked=true;">Manage Trainings </button>
+<button ng-class="{'clicked':  subject == true }" ng-click="employees = false; training = false; subject=true; buttonclicked=true;">Manage Subjects</button>
+<button ng-class="{'clicked':  employees == true }" ng-click="employees = true; training = false; subject=false; buttonclicked=true;">Manage Employees</button>
 </div>
-<div>
+<div class="mainapp" ng-if="employees || training || subject">
 <all-don type="option"  sectioncontent="sectioncontent" ng-if="employees"></all-don>
 <all-formation ng-if="training"></all-formation>
+<all-subject ng-if="subject"></all-subject>
 </div>

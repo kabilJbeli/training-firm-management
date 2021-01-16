@@ -3,15 +3,18 @@
   version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
   <persistence-unit name="centerManagement" transaction-type="RESOURCE_LOCAL">
 <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>  
- 	<class>com.managament.entities.Personnel</class>
+ 	    <class>com.managament.entities.Personnel</class>
 		<class>com.managament.entities.Type</class>
 		<class>com.managament.entities.Formation</class>
+		<class>com.managament.entities.Matiere</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-      <property name="javax.persistence.jdbc.url"    value="jdbc:mysql://localhost/center" />
+      <property name="javax.persistence.jdbc.url"    value="jdbc:mysql://localhost/center-test?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC" />
       <property name="javax.persistence.jdbc.user" value="root" />
       <property name="javax.persistence.jdbc.password" value="root" />
-      <property name="eclipselink.ddl-generation" value="create-tables" />
+ <!--   <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+   <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+   --> 
     </properties>
   </persistence-unit>
 </persistence>

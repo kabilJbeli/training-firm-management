@@ -14,21 +14,18 @@
   <strong> Success!</strong> a new Item/Type has been added with success.
 </div>
 <button ng-if="!showSpinner" type="button" class="btn btn-info col-md-3" data-toggle="modal" data-target="#exampleModal">
-Add Don
+Add Employee
 </button>
-<button ng-if="!showSpinner" class="col-md-3 btn btn-success " style="margin-left: 10%;"data-toggle="modal" data-target="#removeType">Remove Types</button>
 
-<button ng-if="!showSpinner" type="button" class="btn btn-danger col-md-3 pull-right" data-toggle="modal" data-target="#typeModal">
-Add Type
-</button>
+
 <table class="table table-striped" ng-if="!showSpinner">
   <thead>
     <tr>
     <th class="text-center" scope="col">ID</th>
-    <th class="text-center" scope="col">description</th>
-    <th class="text-center" scope="col">affectation</th>
-    <th class="text-center" scope="col">Quantity</th>
-    <th class="text-center" scope="col">Type</th>
+    <th class="text-center" scope="col">Nom</th>
+    <th class="text-center" scope="col">Prenom</th>
+    <th class="text-center" scope="col">Honoraire</th>
+    <th class="text-center" scope="col">Poste</th>
 <th class="text-center" scope="col">Action</th>
     </tr>
   </thead>
@@ -36,7 +33,11 @@ Add Type
 <tr scope="row" ng-repeat=" item in content track by $index" >
 
 <td  ng-repeat=" i in item track by $index" ng-if="!displayitem($index)"> 
-<find-type ng-if="$index == 4" sectioncontent="item[4]"></find-type>  <span ng-if="$index != 4">{{ i }}</span> </td>
+
+<span ng-if="$index == 4">{{ typeList[i] }}</span>
+<span ng-if="$index != 4">{{ i }}</span> 
+ </td>
+
 
 <td> 
 <button class="btn btn-danger" ng-click="deleteItem(item[0])">Delete</button> 
@@ -81,17 +82,19 @@ Add Type
       </div>
       <div class="modal-body">
       	
-  	<select name="selectedOption" id="mySelect" class="form-control"
-      ng-options=" option[1] for option in  typeList track by option[0]"
-      ng-model="updateOption" ></select>
-		<input type="number" placeholder="Quantity"  class="form-control" ng-model="updatequantity" />  
-  		<input type="text" placeholder="Description" class="form-control" ng-model="updatedescription"/>  
-  	  	<input type="text" placeholder="Affectation" class="form-control" ng-model="updateaffectation"/>  
+  		<input type="text" placeholder="Employee name"  class="form-control" ng-model="updatename" />  
+  		<input type="text" placeholder="Employee lastname" class="form-control" ng-model="updatelastname"/>  
+  	  		<input type="number" placeholder="Per hour pay" class="form-control" ng-model="updatehonoraire"/>  
   	
+      	      	
+  	<select name="updateselectedOption" id="mySelect" class="form-control"
+      ng-options=" option for option in  typeList "
+      ng-model="updateselectedOption" ></select>
+
    
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="updateSelectedItem(updatequantity,updatedescription,updateOption,updateaffectation)" data-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-primary" ng-click="updateSelectedItem(updatename,updatelastname,updatehonoraire,updateselectedOption)" data-dismiss="modal">Save changes</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -100,43 +103,9 @@ Add Type
 
 
 
-<div id="removeType" ng-if="!showSpinner" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Remove a type</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <span class="text-danger text-center" style="display:block; margin-bottom: 30px;" ng-if="removeTypeResponse" ng-bind-html="removeTypeResponse"></span>
-  	<table class="table table-striped" ng-if="!showSpinner">
-  <thead>
-    <tr>
-    <th class="text-center" scope="col">Type ID</th>
-    <th class="text-center" scope="col">Type Name</th>
-    <th class="text-center" scope="col">Requested Quantity</th>
-      <th class="text-center" scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-<tr scope="row" ng-repeat=" item in typeList track by $index" >
-<td  ng-repeat=" i in item track by $index" > {{ i }} </td>
 
-<td> 
-<button class="btn btn-danger" ng-click="deleteType(item[0])">Delete</button> 
-</td>
-</tr>
-  </tbody>
-</table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+
+
 
 
 
@@ -149,27 +118,34 @@ Add Type
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title">Add A New Don</h3>
+        <h3 class="modal-title">Add A New Employee</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
       	
-  	<select name="selectedOption" id="mySelect" class="form-control"
-      ng-options=" option[1] for option in  typeList track by option[0]"
-      ng-model="selectedOption" ></select>
-		<input type="number" placeholder="Quantity"  class="form-control" ng-model="quantity" />  
-  		<input type="text" placeholder="Description" class="form-control" ng-model="description"/>  
+      	
+		<input type="text" placeholder="Employee name"  class="form-control" ng-model="name" />  
+  		<input type="text" placeholder="Employee lastname" class="form-control" ng-model="lastname"/>  
+  	  		<input type="number" placeholder="Per hour pay" class="form-control" ng-model="honoraire"/>  
   	
+      	      	
+  	<select name="selectedOption" id="mySelect" class="form-control"
+      ng-options=" option for option in  typeList "
+      ng-model="selectedOption" ></select>
+
+      
    
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="addItem(quantity,description,selectedOption)" data-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-primary" ng-click="addItem(name,lastname,honoraire,selectedOption)" data-dismiss="modal">Save changes</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
+
+
 
 <div ng-if="showSpinner" class="lds-dual-ring"></div>
